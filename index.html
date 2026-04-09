@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuintafel-kopen.nl | Premium KING® Picknicktafels – Gratis levering NL</title>
-    <meta name="description" content="Specialist in KING® picknicktafels. Plankdikte 4 cm, FSC-gecertificeerd, gratis levering in Nederland. ✓ 2 jaar garantie ✓ 1e keuze & voordelige 2de keuze ✓ Zakelijk welkom">
+    <title>Tuintafel-kopen.nl | Premium KING® Picknicktafels – €10 Korting voor NL</title>
+    <meta name="description" content="Specialist in KING® picknicktafels. 4 cm plankdikte. ✓ 2 jaar garantie ✓ Iedereen ontvangt een factuur ✓ €10 korting – want wij adverteren NIET op Google!">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
@@ -19,13 +18,14 @@
             --cream: #f7f3ee;
             --warm-white: #fdfaf6;
             --oak: #8b6914;
-            --bark: #5c4418;
             --sand: #e8dcc8;
             --text: #1c1c1c;
             --text-muted: #6b7280;
             --border: #ddd5c8;
             --red: #c0392b;
-            --badge-second: #d97706;
+            --gold: #d97706;
+            --discount-bg: #fef3c7;
+            --discount-border: #f59e0b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,19 +37,32 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* ── HEADER ── */
+        /* ── TOPBAR ── */
         .topbar {
             background: var(--forest);
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.88);
             font-size: 13px;
             text-align: center;
-            padding: 8px 0;
+            padding: 9px 0;
             letter-spacing: 0.02em;
         }
-        .topbar span { margin: 0 12px; }
+        .topbar span { margin: 0 10px; }
 
+        /* ── DISCOUNT BANNER ── */
+        .discount-banner {
+            background: linear-gradient(135deg, #92400e 0%, var(--gold) 50%, #92400e 100%);
+            color: white;
+            text-align: center;
+            padding: 11px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+        .discount-banner strong { font-size: 16px; }
+
+        /* ── HEADER ── */
         header {
             background: var(--warm-white);
             border-bottom: 1px solid var(--border);
@@ -63,31 +76,24 @@
         }
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem; font-weight: 800;
+            font-size: 1.55rem; font-weight: 800;
             color: var(--forest); text-decoration: none;
             display: flex; align-items: center; gap: 10px;
         }
-        .logo-leaf { font-size: 1.8rem; }
-
-        nav { display: flex; gap: 6px; }
+        nav { display: flex; gap: 4px; }
         nav a {
             font-size: 14px; font-weight: 500;
             color: var(--text-muted); text-decoration: none;
-            padding: 7px 14px; border-radius: 6px;
+            padding: 7px 13px; border-radius: 6px;
             transition: all 0.2s;
         }
-        nav a:hover, nav a.active { color: var(--forest); background: var(--sand); }
-
+        nav a:hover { color: var(--forest); background: var(--sand); }
         .cart-btn {
             position: relative;
-            background: var(--moss);
-            color: white;
-            border: none;
-            padding: 10px 22px 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
+            background: var(--moss); color: white;
+            border: none; padding: 10px 22px 10px 18px;
+            border-radius: 8px; cursor: pointer;
+            font-size: 15px; font-weight: 500;
             font-family: 'DM Sans', sans-serif;
             display: flex; align-items: center; gap: 8px;
             transition: background 0.2s, transform 0.15s;
@@ -118,18 +124,27 @@
             position: relative;
         }
         .hero-text h1 {
-            font-size: 3.2rem; font-weight: 800;
-            color: white; line-height: 1.15; margin-bottom: 20px;
+            font-size: 3rem; font-weight: 800;
+            color: white; line-height: 1.15; margin-bottom: 16px;
         }
-        .hero-text h1 span { color: var(--fern); }
+        .hero-text h1 span { color: #fcd34d; }
         .hero-text p {
-            font-size: 1.15rem; color: rgba(255,255,255,0.85);
-            margin-bottom: 32px; max-width: 480px;
+            font-size: 1.1rem; color: rgba(255,255,255,0.88);
+            margin-bottom: 28px; max-width: 500px;
         }
-        .hero-cta {
-            display: flex; gap: 14px; flex-wrap: wrap;
+
+        /* Hero discount pill */
+        .hero-discount-pill {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255,193,7,0.15);
+            border: 2px solid rgba(255,193,7,0.5);
+            border-radius: 50px; padding: 10px 20px;
+            color: #fcd34d; font-weight: 700; font-size: 15px;
+            margin-bottom: 24px;
         }
-        .btn-primary {
+
+        .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-white {
             background: white; color: var(--forest);
             border: none; padding: 14px 30px;
             border-radius: 8px; font-size: 15px; font-weight: 600;
@@ -137,7 +152,7 @@
             text-decoration: none; display: inline-block;
             transition: all 0.2s;
         }
-        .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+        .btn-white:hover { background: var(--cream); transform: translateY(-2px); }
         .btn-outline {
             background: transparent; color: white;
             border: 2px solid rgba(255,255,255,0.5);
@@ -150,14 +165,12 @@
         .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
         .hero-badges {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-            margin-top: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px;
         }
         .hero-badge {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 10px; padding: 12px 16px;
-            backdrop-filter: blur(4px);
             color: white; font-size: 13.5px;
         }
         .hero-badge strong { display: block; font-size: 15px; margin-bottom: 2px; }
@@ -169,81 +182,82 @@
         }
         .hero-image-badge {
             position: absolute; top: -14px; right: -14px;
-            background: var(--oak); color: white;
+            background: var(--gold); color: white;
             border-radius: 50%; width: 90px; height: 90px;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             font-size: 11px; font-weight: 700; text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            line-height: 1.2;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); line-height: 1.2;
         }
         .hero-image-badge big { font-size: 22px; font-family: 'Playfair Display', serif; }
 
         /* ── TRUST BAR ── */
-        .trust-bar {
-            background: var(--forest); color: white;
-            padding: 18px 0;
-        }
+        .trust-bar { background: var(--forest); color: white; padding: 18px 0; }
         .trust-bar-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 24px;
-            display: flex; justify-content: center;
-            gap: 40px; flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 36px; flex-wrap: wrap;
         }
-        .trust-item {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 14px; font-weight: 500;
-        }
-        .trust-item .icon { font-size: 20px; }
+        .trust-item { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 500; }
+        .trust-item .icon { font-size: 18px; }
 
-        /* ── FILTER TABS ── */
-        .filter-section {
+        /* ── NO-GOOGLE SECTION ── */
+        .no-google-section {
+            background: var(--discount-bg);
+            border-top: 3px solid var(--discount-border);
+            border-bottom: 3px solid var(--discount-border);
+            padding: 40px 0;
+        }
+        .no-google-inner {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px;
+            display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center;
+        }
+        .no-google-amount {
+            text-align: center;
+            background: white; border-radius: 16px;
+            padding: 30px; border: 2px solid var(--discount-border);
+            box-shadow: 0 4px 20px rgba(245,158,11,0.15);
+        }
+        .no-google-amount .big-discount {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem; font-weight: 800; color: var(--gold);
+            line-height: 1;
+        }
+        .no-google-amount p { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
+        .no-google-text h2 { color: var(--forest); font-size: 1.7rem; margin-bottom: 12px; }
+        .no-google-text p { font-size: 15px; color: #44403c; line-height: 1.75; margin-bottom: 12px; }
+        .no-google-text p strong { color: var(--forest); }
+
+        /* ── FILTER / PRODUCTS ── */
+        .section-header-wrap {
             max-width: 1280px; margin: 60px auto 0; padding: 0 24px;
         }
-        .filter-section h2 {
-            font-size: 2.2rem; color: var(--forest);
-            margin-bottom: 10px;
-        }
-        .filter-section p {
-            color: var(--text-muted); font-size: 1.05rem;
-            margin-bottom: 32px;
-        }
+        .section-header-wrap h2 { font-size: 2.2rem; color: var(--forest); margin-bottom: 8px; }
+        .section-header-wrap p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 28px; }
 
-        .filter-tabs {
-            display: flex; gap: 8px; flex-wrap: wrap;
-            margin-bottom: 36px;
-        }
+        .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
         .filter-tab {
             padding: 9px 20px; border-radius: 50px;
-            border: 2px solid var(--border);
-            background: white; cursor: pointer;
-            font-size: 14px; font-weight: 500;
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text-muted);
+            border: 2px solid var(--border); background: white;
+            cursor: pointer; font-size: 14px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; color: var(--text-muted);
             transition: all 0.2s;
         }
         .filter-tab:hover { border-color: var(--sage); color: var(--forest); }
-        .filter-tab.active {
-            background: var(--forest); border-color: var(--forest);
-            color: white;
-        }
+        .filter-tab.active { background: var(--forest); border-color: var(--forest); color: white; }
 
-        /* ── PRODUCT GRID ── */
-        .products-container {
-            max-width: 1280px; margin: 0 auto; padding: 0 24px 80px;
-        }
+        .products-wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
         }
+
+        /* ── PRODUCT CARD ── */
         .product-card {
-            background: white;
-            border-radius: 14px;
-            overflow: hidden;
+            background: white; border-radius: 14px; overflow: hidden;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
-            display: flex; flex-direction: column;
-            position: relative;
+            display: flex; flex-direction: column; position: relative;
         }
         .product-card:hover {
             transform: translateY(-5px);
@@ -251,47 +265,36 @@
             border-color: var(--fern);
         }
 
-        /* Image Gallery */
-        .product-gallery {
-            position: relative;
-            padding-top: 70%;
-            overflow: hidden;
-            background: var(--cream);
-        }
+        /* Gallery */
+        .product-gallery { position: relative; padding-top: 70%; overflow: hidden; background: var(--cream); }
         .gallery-slides { position: absolute; inset: 0; }
-        .gallery-slide {
-            position: absolute; inset: 0;
-            opacity: 0; transition: opacity 0.4s ease;
-        }
+        .gallery-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
         .gallery-slide.active { opacity: 1; }
-        .gallery-slide img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-dots {
             position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 5px; z-index: 2;
         }
         .gallery-dot {
             width: 7px; height: 7px; border-radius: 50%;
-            background: rgba(255,255,255,0.5); border: none; cursor: pointer;
-            transition: background 0.2s; padding: 0;
+            background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0;
+            transition: background 0.2s;
         }
         .gallery-dot.active { background: white; }
         .gallery-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.85); border: none;
+            background: rgba(255,255,255,0.88); border: none;
             width: 32px; height: 32px; border-radius: 50%;
             cursor: pointer; font-size: 14px;
             display: none; align-items: center; justify-content: center;
-            transition: all 0.2s; z-index: 2;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 2;
         }
         .gallery-nav:hover { background: white; }
         .gallery-nav.prev { left: 10px; }
         .gallery-nav.next { right: 10px; }
         .product-card:hover .gallery-nav { display: flex; }
 
-        /* Product Badges */
+        /* Badges */
         .badge-row {
             position: absolute; top: 12px; left: 12px;
             display: flex; gap: 6px; z-index: 2; flex-wrap: wrap;
@@ -302,55 +305,36 @@
             text-transform: uppercase; letter-spacing: 0.03em;
         }
         .badge-popular { background: var(--moss); color: white; }
-        .badge-second { background: var(--badge-second); color: white; }
-        .badge-sale { background: var(--red); color: white; }
         .badge-new { background: var(--oak); color: white; }
-        .badge-cover { background: #3b82f6; color: white; }
+        .badge-royal { background: #7c3aed; color: white; }
         .badge-pack { background: var(--forest); color: white; }
+        .badge-cover { background: #0284c7; color: white; }
 
-        /* Product Info */
-        .product-info {
-            padding: 20px 22px 22px;
-            flex-grow: 1; display: flex; flex-direction: column;
-        }
+        /* Info */
+        .product-info { padding: 20px 22px 22px; flex-grow: 1; display: flex; flex-direction: column; }
         .product-category {
             font-size: 11.5px; text-transform: uppercase;
-            letter-spacing: 0.07em; font-weight: 600;
-            color: var(--sage); margin-bottom: 6px;
+            letter-spacing: 0.07em; font-weight: 600; color: var(--sage); margin-bottom: 6px;
         }
-        .product-title {
-            font-size: 1.08rem; font-weight: 600;
-            color: var(--text); line-height: 1.35;
-            margin-bottom: 10px;
-        }
+        .product-title { font-size: 1.08rem; font-weight: 600; line-height: 1.35; margin-bottom: 10px; }
         .product-specs {
             font-size: 12.5px; color: var(--text-muted);
             background: var(--cream); border-radius: 6px;
-            padding: 7px 10px; margin-bottom: 12px;
-            font-weight: 500;
+            padding: 7px 10px; margin-bottom: 12px; font-weight: 500;
         }
-        .product-description {
-            font-size: 13.5px; color: var(--text-muted);
-            line-height: 1.55; flex-grow: 1; margin-bottom: 18px;
-        }
-        .product-footer {
-            display: flex; align-items: center;
-            justify-content: space-between; gap: 10px;
-        }
+        .product-description { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; flex-grow: 1; margin-bottom: 18px; }
+
+        /* Price + discount */
+        .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .price-block { display: flex; flex-direction: column; }
-        .price-old {
-            font-size: 12.5px; color: var(--text-muted);
-            text-decoration: line-through;
+        .price-main { font-size: 1.55rem; font-weight: 700; color: var(--forest); line-height: 1; }
+        .price-discount-note {
+            font-size: 11.5px; color: var(--gold); font-weight: 600; margin-top: 3px;
         }
-        .price-main {
-            font-size: 1.6rem; font-weight: 700;
-            color: var(--forest); line-height: 1;
-        }
-        .price-main.sale { color: var(--red); }
 
         .btn-cart {
             background: var(--moss); color: white;
-            border: none; padding: 11px 20px;
+            border: none; padding: 11px 18px;
             border-radius: 8px; cursor: pointer;
             font-size: 14px; font-weight: 600;
             font-family: 'DM Sans', sans-serif;
@@ -361,81 +345,61 @@
         .btn-cart.added { background: #16a34a; }
 
         /* ── INFO SECTION ── */
-        .info-section {
-            background: var(--cream);
-            padding: 80px 0;
-            margin-bottom: 0;
-        }
+        .info-section { background: var(--cream); padding: 80px 0; }
         .info-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 24px;
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px;
         }
         .info-card {
             background: white; border-radius: 14px;
-            padding: 30px; border: 1px solid var(--border);
+            padding: 28px; border: 1px solid var(--border);
         }
-        .info-icon { font-size: 2.5rem; margin-bottom: 16px; }
-        .info-card h3 {
-            font-size: 1.2rem; color: var(--forest);
-            margin-bottom: 12px;
-        }
-        .info-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+        .info-icon { font-size: 2.3rem; margin-bottom: 14px; }
+        .info-card h3 { font-size: 1.15rem; color: var(--forest); margin-bottom: 10px; }
+        .info-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
         .info-list { list-style: none; margin-top: 10px; }
-        .info-list li {
-            font-size: 13.5px; color: var(--text-muted);
-            padding: 5px 0 5px 20px; position: relative;
-        }
-        .info-list li::before {
-            content: '✓'; position: absolute; left: 0;
-            color: var(--sage); font-weight: 700;
-        }
+        .info-list li { font-size: 13.5px; color: var(--text-muted); padding: 4px 0 4px 20px; position: relative; }
+        .info-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sage); font-weight: 700; }
 
-        /* ── ABOUT NL SECTION ── */
-        .about-nl {
-            background: var(--forest); color: white;
-            padding: 60px 0;
-        }
-        .about-nl-inner {
+        /* section header */
+        .section-title { text-align: center; margin-bottom: 48px; }
+        .section-title h2 { font-size: 2.2rem; color: var(--forest); margin-bottom: 10px; }
+        .section-title p { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+
+        /* ── LEVERING SECTION ── */
+        .levering-section { background: var(--forest); color: white; padding: 60px 0; }
+        .levering-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 24px;
             display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
         }
-        .about-nl h2 { font-size: 2rem; margin-bottom: 18px; }
-        .about-nl p { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.75; margin-bottom: 14px; }
-        .nl-stats {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
-        .nl-stat {
+        .levering-inner h2 { font-size: 2rem; margin-bottom: 18px; }
+        .levering-inner p { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.75; margin-bottom: 14px; }
+        .levering-inner a { color: var(--fern); }
+        .levering-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .lev-stat {
             background: rgba(255,255,255,0.1); border-radius: 10px;
             padding: 20px; text-align: center;
             border: 1px solid rgba(255,255,255,0.15);
         }
-        .nl-stat big {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem; display: block; margin-bottom: 4px;
-        }
-        .nl-stat span { font-size: 13px; color: rgba(255,255,255,0.7); }
+        .lev-stat big { font-family: 'Playfair Display', serif; font-size: 2rem; display: block; margin-bottom: 4px; }
+        .lev-stat span { font-size: 13px; color: rgba(255,255,255,0.65); }
 
         /* ── FOOTER ── */
-        footer {
-            background: #111; color: rgba(255,255,255,0.8);
-            padding: 60px 0 24px;
-        }
+        footer { background: #111; color: rgba(255,255,255,0.75); padding: 60px 0 24px; }
         .footer-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 24px;
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
-            margin-bottom: 40px;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;
         }
-        .footer-brand .logo { color: white; font-size: 1.4rem; margin-bottom: 14px; display: block; }
-        footer p, footer li { font-size: 13.5px; line-height: 1.8; }
-        footer h4 { color: white; font-size: 14px; font-weight: 600; margin-bottom: 14px; letter-spacing: 0.03em; }
+        footer p, footer li { font-size: 13.5px; line-height: 1.85; }
+        footer h4 { color: white; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
         footer ul { list-style: none; }
-        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: white; }
         .footer-bottom {
-            max-width: 1280px; margin: 0 auto; padding: 20px 24px 0;
+            max-width: 1280px; margin: 0 auto; padding: 18px 24px 0;
             border-top: 1px solid rgba(255,255,255,0.1);
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 12.5px; color: rgba(255,255,255,0.45);
+            font-size: 12.5px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px;
         }
 
         /* ── CART MODAL ── */
@@ -445,18 +409,15 @@
             backdrop-filter: blur(4px);
         }
         .modal {
-            background: white;
-            max-width: 860px; width: 92%;
-            margin: 30px auto;
-            border-radius: 16px;
+            background: white; max-width: 880px; width: 92%;
+            margin: 30px auto; border-radius: 16px;
             max-height: calc(100vh - 60px);
             display: flex; flex-direction: column;
             box-shadow: 0 20px 60px rgba(0,0,0,0.25);
         }
         .modal-head {
             background: var(--forest); color: white;
-            padding: 18px 28px;
-            border-radius: 16px 16px 0 0;
+            padding: 18px 28px; border-radius: 16px 16px 0 0;
             display: flex; justify-content: space-between; align-items: center;
         }
         .modal-head h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
@@ -481,7 +442,7 @@
         .cart-item img { width: 90px; height: 68px; object-fit: cover; border-radius: 8px; }
         .cart-item h4 { font-size: 14.5px; margin-bottom: 4px; }
         .cart-item p { font-size: 12.5px; color: var(--text-muted); }
-        .cart-controls { display: flex; align-items: center; gap: 16px; }
+        .cart-controls { display: flex; align-items: center; gap: 14px; }
         .qty-wrap { display: flex; align-items: center; gap: 8px; background: var(--cream); border-radius: 8px; padding: 4px; }
         .qty-btn {
             background: white; border: 1px solid var(--border);
@@ -492,11 +453,21 @@
         }
         .qty-btn:hover { background: var(--forest); color: white; border-color: var(--forest); }
         .qty-val { min-width: 28px; text-align: center; font-weight: 600; font-size: 15px; }
-        .item-price { font-size: 1.1rem; font-weight: 700; color: var(--forest); min-width: 90px; text-align: right; }
+        .item-price { font-size: 1.1rem; font-weight: 700; color: var(--forest); min-width: 80px; text-align: right; }
         .remove-item { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem; padding: 4px; }
 
-        .cart-summary { background: var(--cream); border-radius: 10px; padding: 22px; margin-top: 28px; }
+        /* Discount notice in cart */
+        .cart-discount-notice {
+            background: var(--discount-bg); border: 2px solid var(--discount-border);
+            border-radius: 10px; padding: 14px 18px;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 16px; font-size: 14px; color: #78350f;
+        }
+        .cart-discount-notice strong { font-size: 15px; }
+
+        .cart-summary { background: var(--cream); border-radius: 10px; padding: 22px; margin-top: 20px; }
         .sum-row { display: flex; justify-content: space-between; font-size: 14.5px; margin-bottom: 10px; }
+        .sum-row.discount { color: var(--gold); font-weight: 600; }
         .sum-row.total {
             font-size: 1.2rem; font-weight: 700; color: var(--forest);
             border-top: 2px solid var(--border); padding-top: 14px; margin-top: 14px; margin-bottom: 0;
@@ -510,49 +481,42 @@
         }
         .checkout-cta:hover { background: var(--moss); }
 
-        /* Checkout Form */
-        .form-section { margin-bottom: 28px; }
-        .form-section h3 {
-            font-size: 1.1rem; color: var(--forest);
-            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
-        }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        /* Checkout form */
+        .form-section { margin-bottom: 26px; }
+        .form-section h3 { font-size: 1.1rem; color: var(--forest); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .form-group { display: flex; flex-direction: column; }
         .form-group label { font-size: 13.5px; font-weight: 500; margin-bottom: 6px; }
         .form-group input, .form-group textarea, .form-group select {
             padding: 11px 14px; border: 1.5px solid var(--border);
             border-radius: 8px; font-size: 14.5px;
-            font-family: 'DM Sans', sans-serif;
-            transition: border-color 0.2s; background: white;
+            font-family: 'DM Sans', sans-serif; transition: border-color 0.2s; background: white;
         }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--sage);
-        }
-        .form-group textarea { resize: vertical; min-height: 90px; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--sage); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
         .radio-group, .check-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
         .radio-group label, .check-group label { font-size: 14px; cursor: pointer; line-height: 1.5; }
         .radio-group input, .check-group input { margin-top: 3px; }
 
-        .bank-box {
-            background: #eff6ff; border: 2px solid #bfdbfe;
-            border-radius: 10px; padding: 22px; margin: 24px 0;
+        /* Important notice about invoice + payment */
+        .invoice-notice {
+            background: #eff6ff; border: 2px solid #93c5fd;
+            border-radius: 10px; padding: 20px 22px; margin: 22px 0;
         }
-        .bank-box h4 { color: #1d4ed8; font-size: 15px; margin-bottom: 14px; }
-        .bank-row { display: flex; gap: 16px; font-size: 14px; margin-bottom: 8px; }
-        .bank-row strong { min-width: 110px; }
+        .invoice-notice h4 { color: #1d4ed8; font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .invoice-notice p { font-size: 13.5px; color: #1e3a8a; line-height: 1.65; margin-bottom: 8px; }
+        .invoice-notice p:last-child { margin-bottom: 0; }
+        .bank-row { display: flex; gap: 16px; font-size: 13.5px; margin-bottom: 6px; color: #1e40af; }
+        .bank-row strong { min-width: 130px; }
 
-        .success-box {
-            display: none; background: #16a34a; color: white;
-            border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
+        .checkout-discount-box {
+            background: var(--discount-bg); border: 2px solid var(--discount-border);
+            border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+            display: flex; align-items: center; gap: 14px;
+            font-size: 14px; color: #78350f;
         }
-        .success-box h3 { font-size: 1.2rem; margin-bottom: 8px; }
-
-        /* Section headings */
-        .section-title {
-            text-align: center; margin-bottom: 48px;
-        }
-        .section-title h2 { font-size: 2.2rem; color: var(--forest); margin-bottom: 10px; }
-        .section-title p { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+        .checkout-discount-box .disc-icon { font-size: 2rem; }
+        .checkout-discount-box strong { font-size: 15px; display: block; margin-bottom: 4px; }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -560,7 +524,8 @@
             .hero-image { display: none; }
             .hero-text h1 { font-size: 2.4rem; }
             .info-inner { grid-template-columns: 1fr; }
-            .about-nl-inner { grid-template-columns: 1fr; }
+            .levering-inner { grid-template-columns: 1fr; }
+            .no-google-inner { grid-template-columns: 1fr; }
             .footer-inner { grid-template-columns: 1fr 1fr; }
             nav { display: none; }
         }
@@ -570,34 +535,37 @@
             .form-row { grid-template-columns: 1fr; }
             .cart-item { grid-template-columns: 70px 1fr; }
             .cart-controls { grid-column: 1/-1; justify-content: space-between; }
+            .trust-bar-inner { gap: 16px; }
         }
-
-        /* Hidden class */
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-    <span>🚚 Gratis levering in heel Nederland</span>
+    <span>🪑 Premium KING® Picknicktafels</span>
     <span>|</span>
-    <span>✓ FSC-gecertificeerd hout</span>
+    <span>✉️ support@e-woodproducts.com</span>
     <span>|</span>
-    <span>🛡️ 2 jaar garantie</span>
+    <span>🛡️ 2 jaar garantie op alle producten</span>
     <span>|</span>
-    <span>📞 Levering binnen 3-10 werkdagen</span>
+    <span>📄 Iedereen ontvangt een officiële factuur</span>
 </div>
 
+<!-- DISCOUNT BANNER -->
+<div class="discount-banner">
+    🎁 <strong>€10 KORTING</strong> voor alle klanten via tuintafel-kopen.nl — omdat wij <strong>NIET</strong> adverteren op Google!
+</div>
+
+<!-- HEADER -->
 <header>
     <div class="header-inner">
-        <a href="/" class="logo">
-            <span class="logo-leaf">🌿</span>
-            Tuintafel-kopen.nl
-        </a>
+        <a href="/" class="logo">🌿 Tuintafel-kopen.nl</a>
         <nav>
-            <a href="#producten" class="active" onclick="scrollTo('producten')">Picknicktafels</a>
-            <a href="#informatie" onclick="scrollTo('informatie')">Over KING®</a>
-            <a href="#levering" onclick="scrollTo('levering')">Levering</a>
+            <a href="#producten" onclick="smoothScroll('producten');return false;">Picknicktafels</a>
+            <a href="#waarom" onclick="smoothScroll('waarom');return false;">Waarom wij?</a>
+            <a href="#levering" onclick="smoothScroll('levering');return false;">Levering</a>
+            <a href="https://www.e-woodproducts.com/nl-nl" target="_blank">Officiële webshop</a>
             <a href="#" onclick="showTerms();return false;">Voorwaarden</a>
         </nav>
         <button class="cart-btn" onclick="openCart()">
@@ -607,32 +575,24 @@
     </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
     <div class="hero-inner">
         <div class="hero-text">
+            <div class="hero-discount-pill">
+                🎁 Exclusief hier: €10 korting — geen Google-advertenties
+            </div>
             <h1>Premium <span>KING®</span> Picknicktafels voor uw Tuin</h1>
-            <p>Exclusieve distributeur van KING® picknicktafels. Gemaakt van FSC-gecertificeerd vurenhout met 4 cm plankdikte — ontworpen voor jarenlang buitenplezier.</p>
+            <p>Topkwaliteit picknicktafels met 4 cm plankdikte, direct bij de officiële distributeur. Iedereen ontvangt een officiële factuur. En wij besparen uw marketingkosten — €10 gaat rechtstreeks naar u!</p>
             <div class="hero-cta">
-                <a href="#producten" class="btn-primary" onclick="smoothScroll('producten');return false;">Bekijk alle tafels</a>
-                <a href="#informatie" class="btn-outline" onclick="smoothScroll('informatie');return false;">Meer over KING®</a>
+                <a href="#producten" class="btn-white" onclick="smoothScroll('producten');return false;">Bekijk alle tafels</a>
+                <a href="#waarom" class="btn-outline" onclick="smoothScroll('waarom');return false;">Hoe werkt de korting?</a>
             </div>
             <div class="hero-badges">
-                <div class="hero-badge">
-                    <strong>🌿 FSC-gecertificeerd</strong>
-                    Duurzaam vurenhout
-                </div>
-                <div class="hero-badge">
-                    <strong>📐 4 cm plankdikte</strong>
-                    Extra robuust & stabiel
-                </div>
-                <div class="hero-badge">
-                    <strong>🚚 Gratis verzending</strong>
-                    Heel Nederland
-                </div>
-                <div class="hero-badge">
-                    <strong>🏆 Sinds 2012</strong>
-                    Exclusief distributeur
-                </div>
+                <div class="hero-badge"><strong>🎁 €10 korting</strong>Alleen via deze website</div>
+                <div class="hero-badge"><strong>📐 4 cm plankdikte</strong>Extra robuust & stabiel</div>
+                <div class="hero-badge"><strong>📄 Officiële factuur</strong>Voor iedereen automatisch</div>
+                <div class="hero-badge"><strong>🏆 Sinds 2012</strong>Exclusief KING® distributeur</div>
             </div>
         </div>
         <div class="hero-image">
@@ -640,159 +600,171 @@
                  alt="KING picknicktafel in tuin"
                  onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjM1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjM1MCIgZmlsbD0iIzJkNWEzZCIvPjwvc3ZnPg=='">
             <div class="hero-image-badge">
-                <big>4cm</big>
-                Plank-<br>dikte
+                <big>€10</big>
+                korting<br>hier!
             </div>
         </div>
     </div>
 </section>
 
+<!-- TRUST BAR -->
 <div class="trust-bar">
     <div class="trust-bar-inner">
-        <div class="trust-item"><span class="icon">🏅</span> Exclusief KING® distributeur Nederland</div>
-        <div class="trust-item"><span class="icon">📦</span> Veilig verpakt & thuis bezorgd</div>
-        <div class="trust-item"><span class="icon">💶</span> Betalen via iDEAL of bankoverschrijving</div>
+        <div class="trust-item"><span class="icon">📄</span> Officiële factuur voor elke klant</div>
+        <div class="trust-item"><span class="icon">💳</span> Betalen na ontvangst factuur</div>
+        <div class="trust-item"><span class="icon">🚚</span> Levering 3–10 werkdagen</div>
         <div class="trust-item"><span class="icon">🔄</span> 14 dagen herroepingsrecht</div>
-        <div class="trust-item"><span class="icon">📞</span> Vlotte klantenservice</div>
+        <div class="trust-item"><span class="icon">🛡️</span> 2 jaar garantie</div>
     </div>
 </div>
 
+<!-- NO-GOOGLE SECTION -->
+<section id="waarom" class="no-google-section">
+    <div class="no-google-inner">
+        <div class="no-google-amount">
+            <div class="big-discount">€10</div>
+            <p><strong>korting</strong> voor elke klant<br>via tuintafel-kopen.nl</p>
+        </div>
+        <div class="no-google-text">
+            <h2>Wij adverteren niet op Google — dat voordeel krijgt ú!</h2>
+            <p>De meeste webshops betalen honderden euro's per dag aan Google Ads. Die kosten worden verrekend in de productprijzen. <strong>Wij doen dat niet.</strong> Op tuintafel-kopen.nl adverteren wij bewust niet op Google.</p>
+            <p>Het geld dat andere verkopers aan Google-advertenties besteden, geven wij liever aan onze klanten. Daarom krijgt <strong>elke bestelling via deze website automatisch €10 korting</strong> — geen kortingscode nodig, geen voorwaarden.</p>
+            <p>Wilt u toch ons volledige assortiment bekijken, inclusief alle tuinmeubelen, banken en accessoires? Bezoek dan onze officiële webshop op <a href="https://www.e-woodproducts.com/nl-nl" target="_blank" style="color:var(--forest);font-weight:600;">e-woodproducts.com</a>. Let op: de €10 korting is <strong>exclusief voor tuintafel-kopen.nl</strong> en niet van toepassing op die website.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
 <section id="producten" style="padding-top: 70px;">
-    <div class="filter-section">
+    <div class="section-header-wrap">
         <h2>Onze KING® Picknicktafels</h2>
-        <p>Kies uit ons complete assortiment — 1e keuze topkwaliteit, comfortmodellen met rugleuning, en voordelige 2de keuze deals.</p>
+        <p>Kies uit ons complete assortiment. Alle prijzen zijn inclusief €10 korting en exclusief verzendkosten (€49,95 incl. btw).</p>
         <div class="filter-tabs" id="filterTabs">
             <button class="filter-tab active" onclick="filterProducts('all', this)">Alle producten</button>
-            <button class="filter-tab" onclick="filterProducts('standaard', this)">Standaard tafels</button>
+            <button class="filter-tab" onclick="filterProducts('standaard', this)">Standaard KING®</button>
             <button class="filter-tab" onclick="filterProducts('rugleuning', this)">Met rugleuning</button>
             <button class="filter-tab" onclick="filterProducts('royal', this)">Royal KING® (4,5 cm)</button>
             <button class="filter-tab" onclick="filterProducts('special', this)">Speciaal (rond/vierkant)</button>
-            <button class="filter-tab" onclick="filterProducts('second', this)">2de Keuze deals</button>
             <button class="filter-tab" onclick="filterProducts('pack', this)">Pakketten</button>
             <button class="filter-tab" onclick="filterProducts('hoes', this)">Beschermhoezen</button>
         </div>
     </div>
-    <div class="products-container">
+    <div class="products-wrap">
         <div class="products-grid" id="productsGrid"></div>
     </div>
 </section>
 
-<section id="informatie" class="info-section">
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px 50px;">
+<!-- INFO SECTION -->
+<section class="info-section">
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px 48px;">
         <div class="section-title">
-            <h2>Waarom KING® Picknicktafels?</h2>
-            <p>Sinds 2012 zijn wij de exclusieve distributeur van KING® picknicktafels in de Benelux. Kwaliteit, duurzaamheid en klantentevredenheid staan centraal.</p>
+            <h2>Waarom kiezen voor KING® Picknicktafels?</h2>
+            <p>Topkwaliteit, eerlijke prijzen, en uitstekende service — rechtstreeks van de officiële distributeur.</p>
         </div>
     </div>
     <div class="info-inner">
         <div class="info-card">
-            <div class="info-icon">🌲</div>
-            <h3>FSC-gecertificeerd hout</h3>
-            <p>Al onze KING® picknicktafels zijn vervaardigd van vurenhout met het FSC-keurmerk. Dit garandeert dat het hout afkomstig is uit verantwoord beheerde bossen.</p>
+            <div class="info-icon">🪵</div>
+            <h3>Topkwaliteit hout</h3>
+            <p>Alle KING® picknicktafels zijn gemaakt van hoogwaardig vurenhout, chemisch geïmpregneerd voor langdurig buitengebruik.</p>
             <ul class="info-list">
-                <li>Plankdikte 40 mm (4 cm) — standaard KING®</li>
-                <li>45 mm (4,5 cm) — Royal KING®</li>
-                <li>Chemisch geïmpregneerd voor buitengebruik</li>
-                <li>Afgeronde hoeken, veilig voor kinderen</li>
+                <li>Plankdikte 40 mm — standaard KING®</li>
+                <li>Plankdikte 45 mm — Royal KING®</li>
+                <li>Geïmpregneerd voor buiten het hele jaar</li>
+                <li>Afgeronde hoeken — veilig voor kinderen</li>
                 <li>Parasolgat (4 cm) in het tafelblad</li>
             </ul>
         </div>
         <div class="info-card">
-            <div class="info-icon">🚚</div>
-            <h3>Levering in Nederland</h3>
-            <p>Wij leveren vanuit ons magazijn in Lebbeke (België) rechtstreeks aan uw deur in heel Nederland. Geen extra kosten, gratis levering voor heel NL.</p>
+            <div class="info-icon">📄</div>
+            <h3>Officiële factuur voor iedereen</h3>
+            <p>Wij sturen iedere klant automatisch een officiële factuur per e-mail — particulier of zakelijk, dat maakt geen verschil.</p>
             <ul class="info-list">
-                <li>Levering binnen 3–10 werkdagen</li>
-                <li>Gratis bezorging in heel Nederland</li>
-                <li>Afhalen in Lebbeke op afspraak</li>
-                <li>Betalen via iDEAL of bankoverschrijving</li>
-                <li>BTW-factuur op aanvraag (NL en BE)</li>
+                <li>Automatische bevestigingsmail na bestelling</li>
+                <li>Officiële factuur volgt daarna per e-mail</li>
+                <li>Betaling na ontvangst van de factuur</li>
+                <li>Betalen via bankoverschrijving</li>
+                <li>IBAN: BE89 0689 3224 6774</li>
             </ul>
         </div>
         <div class="info-card">
-            <div class="info-icon">🛠️</div>
-            <h3>Montage & Garantie</h3>
-            <p>Elke picknicktafel wordt geleverd met alle bevestigingsmaterialen en een duidelijke montagegids. Extra montageservice optioneel beschikbaar.</p>
+            <div class="info-icon">🚚</div>
+            <h3>Levering & Garantie</h3>
+            <p>Vanuit ons magazijn in Lebbeke (België) leveren wij rechtstreeks in heel Nederland. Afhalen kan ook op afspraak.</p>
             <ul class="info-list">
-                <li>2 jaar garantie op fabricage- en materiaalfouten</li>
-                <li>Alle bevestigingsmaterialen inbegrepen</li>
-                <li>Montage optioneel bij te bestellen</li>
+                <li>Levering 3–10 werkdagen na betaling</li>
+                <li>Verzendkosten: €49,95 (incl. btw)</li>
+                <li>Afhalen in Lebbeke gratis, op afspraak</li>
+                <li>2 jaar garantie op fabricagefouten</li>
                 <li>14 dagen herroepingsrecht (wettelijk)</li>
-                <li>Schade rapporteren binnen 48 uur na levering</li>
             </ul>
         </div>
     </div>
 </section>
 
-<section class="about-nl" id="levering">
-    <div class="about-nl-inner">
+<!-- LEVERING SECTION -->
+<section class="levering-section" id="levering">
+    <div class="levering-inner">
         <div>
-            <h2>Belgische kwaliteit, rechtstreeks in Nederland</h2>
-            <p>E-Products Europe BV, gevestigd in Lebbeke (België), levert al meer dan 10 jaar KING® picknicktafels aan klanten in heel Nederland. Wij zijn de exclusieve distributeur en garanderen originele KING® kwaliteit.</p>
-            <p>Als Belgisch bedrijf leveren wij binnen de EU — u betaalt geen extra invoerkosten. Wij zijn BTW-plichtig in België (BTW BE 0500.621.156) en leveren met een geldige factuur.</p>
-            <p>Heeft u een vraag? Neem contact op via <a href="mailto:support@e-woodproducts.com" style="color:var(--fern)">support@e-woodproducts.com</a>.</p>
+            <h2>Belgisch bedrijf, Nederlandse kwaliteitsservice</h2>
+            <p>E-Products Europe BV levert al meer dan 10 jaar KING® picknicktafels in heel Nederland. Als Belgisch EU-bedrijf betaalt u geen extra invoerkosten — gewoon eerlijke prijs, inclusief btw en officiële factuur.</p>
+            <p>Na uw bestelling ontvangt u eerst een <strong style="color:white">bevestigingsmail</strong>. Daarna volgt de <strong style="color:white">officiële factuur</strong> per e-mail. Zodra uw betaling is ontvangen, plannen wij de levering in en nemen wij contact met u op.</p>
+            <p>Bekijk ook ons volledige assortiment — tuinstoelen, banken, ligbedden en meer — op onze officiële webshop: <a href="https://www.e-woodproducts.com/nl-nl" target="_blank">e-woodproducts.com/nl-nl</a>. (De €10 korting geldt uitsluitend via tuintafel-kopen.nl.)</p>
+            <p>Vragen? Stuur een e-mail naar <a href="mailto:support@e-woodproducts.com">support@e-woodproducts.com</a></p>
         </div>
-        <div class="nl-stats">
-            <div class="nl-stat">
-                <big>10+</big>
-                <span>Jaar ervaring</span>
-            </div>
-            <div class="nl-stat">
-                <big>4cm</big>
-                <span>Plankdikte</span>
-            </div>
-            <div class="nl-stat">
-                <big>FSC</big>
-                <span>Gecertificeerd</span>
-            </div>
-            <div class="nl-stat">
-                <big>2 jr</big>
-                <span>Garantie</span>
-            </div>
+        <div class="levering-stats">
+            <div class="lev-stat"><big>10+</big><span>Jaar ervaring</span></div>
+            <div class="lev-stat"><big>4 cm</big><span>Plankdikte</span></div>
+            <div class="lev-stat"><big>2 jr</big><span>Garantie</span></div>
+            <div class="lev-stat"><big>€10</big><span>Korting hier</span></div>
         </div>
     </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand">
-            <a href="/" class="logo" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:white;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">🌿 Tuintafel-kopen.nl</a>
-            <p>Specialist in KING® picknicktafels voor Nederland. Een initiatief van BV E-Products Europe, exclusief KING® distributeur voor de Benelux.</p>
-            <p style="margin-top:12px;color:rgba(255,255,255,0.5);">BTW: BE 0500.621.156</p>
+        <div>
+            <a href="/" style="font-family:'Playfair Display',serif;font-size:1.35rem;color:white;text-decoration:none;display:inline-block;margin-bottom:14px;">🌿 Tuintafel-kopen.nl</a>
+            <p>Specialist in KING® picknicktafels voor Nederland. Een initiatief van BV E-Products Europe, officieel KING® distributeur voor de Benelux.</p>
+            <p style="margin-top:10px;color:rgba(255,255,255,0.45);">BTW: BE 0500.621.156<br>IBAN: BE89 0689 3224 6774 | BIC: GKCCBEBB</p>
         </div>
         <div>
-            <h4>Klantenservice</h4>
+            <h4>Service</h4>
             <ul>
-                <li>Gratis levering NL</li>
                 <li>Levering 3–10 werkdagen</li>
+                <li>Verzendkosten: €49,95 (incl. btw)</li>
                 <li>2 jaar garantie</li>
                 <li>14 dagen herroepingsrecht</li>
                 <li><a href="mailto:support@e-woodproducts.com">support@e-woodproducts.com</a></li>
             </ul>
         </div>
         <div>
-            <h4>Betalen</h4>
+            <h4>Betaling</h4>
             <ul>
-                <li>iDEAL</li>
-                <li>Bankoverschrijving</li>
+                <li>Iedereen krijgt een factuur</li>
+                <li>Betalen via bankoverschrijving</li>
+                <li>Pas betalen na factuurontvangst</li>
                 <li>IBAN: BE89 0689 3224 6774</li>
                 <li>BIC: GKCCBEBB</li>
-                <li>BTW-factuur mogelijk</li>
             </ul>
         </div>
         <div>
-            <h4>Afhaaladres</h4>
-            <p>Hannaerden 1a<br>9280 Lebbeke<br>België<br><strong style="color:rgba(255,255,255,0.7)">Alleen op afspraak</strong></p>
-            <p style="margin-top:12px;"><a href="#" onclick="showTerms();return false;">Algemene voorwaarden</a></p>
+            <h4>Links</h4>
+            <ul>
+                <li><a href="https://www.e-woodproducts.com/nl-nl" target="_blank">Officiële webshop NL</a></li>
+                <li><a href="#" onclick="showTerms();return false;">Algemene voorwaarden</a></li>
+                <li>Afhaaladres: Hannaerden 1a,<br>9280 Lebbeke (BE)<br><em style="color:rgba(255,255,255,0.4)">Alleen op afspraak</em></li>
+            </ul>
         </div>
     </div>
     <div class="footer-bottom">
         <span>© 2024 Tuintafel-kopen.nl — BV E-Products Europe</span>
-        <span>Alle rechten voorbehouden &nbsp;|&nbsp; <a href="#" onclick="showTerms();return false;" style="color:rgba(255,255,255,0.45)">Algemene voorwaarden</a></span>
+        <span>De €10 korting is exclusief voor tuintafel-kopen.nl &nbsp;|&nbsp; <a href="#" onclick="showTerms();return false;">Algemene voorwaarden</a></span>
     </div>
 </footer>
 
-<!-- CART MODAL -->
+<!-- CART OVERLAY -->
 <div class="overlay" id="cartOverlay" onclick="overlayClick(event)">
     <div class="modal">
         <div class="modal-head">
@@ -806,22 +778,23 @@
 <script>
 (function(){ emailjs.init("Tx4r1Fw27_MCyKDR3"); })();
 
-function smoothScroll(id) {
-    document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-}
+const SHIPPING = 49.95;
+const DISCOUNT = 10.00;
 
-/* ═══════════════════════════
-   PRODUCT DATA
-═══════════════════════════ */
+function smoothScroll(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function formatPrice(p) { return '€\u00a0' + p.toFixed(2).replace('.',','); }
+
+/* ═══════════════════════════════════════
+   PRODUCTS
+═══════════════════════════════════════ */
 const products = [
     /* ── STANDAARD KING ── */
     {
         id: 1, cat: 'standaard',
         name: 'Picknicktafel 140 cm KING® / 4 cm dikte',
-        specs: '140 × 162 × 77 cm (L×B×H) | 4 cm planken | 4-6 personen',
-        desc: 'Compacte en stevige KING® picknicktafel voor kleinere tuinen en terrassen. Met FSC-gecertificeerd vurenhout (4 cm dik), afgeronde hoeken en parasolgat. Ideaal voor 4–6 personen. Chemisch geïmpregneerd voor langdurig buitengebruik.',
-        price: 229.95,
-        popular: false,
+        specs: '140 × 162 × 77 cm (L×B×H) | 4 cm planken | 4–6 personen',
+        desc: 'Compacte en stevige KING® picknicktafel voor kleinere tuinen en terrassen. Vurenhout met 4 cm plankdikte, chemisch geïmpregneerd voor langdurig buitengebruik. Afgeronde hoeken (veilig voor kinderen) en parasolgat. Geleverd met alle bevestigingsmaterialen.',
+        price: 229.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K140-eerste-keuze-school.png?v=1757268753',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/140_picknicktafel.jpg?v=1770126066'
@@ -830,10 +803,9 @@ const products = [
     {
         id: 2, cat: 'standaard',
         name: 'Picknicktafel 180 cm KING® / 4 cm dikte',
-        specs: '180 × 162 × 77 cm (L×B×H) | 4 cm planken | 6-8 personen',
-        desc: 'De bestverkochte KING® picknicktafel. Robuust vurenhout (4 cm dik), FSC-gecertificeerd, chemisch geïmpregneerd. Comfortabel voor 6–8 personen, met parasolgat en afgeronde hoeken. Geschikt voor het hele jaar buiten.',
-        price: 279.95,
-        popular: true,
+        specs: '180 × 162 × 77 cm (L×B×H) | 4 cm planken | 6–8 personen',
+        desc: 'De bestverkochte KING® picknicktafel. Hoogwaardig vurenhout met 4 cm plankdikte, chemisch geïmpregneerd. Comfortabel voor 6–8 volwassenen. Parasolgat (4 cm), afgeronde hoeken, het hele jaar buiten te laten staan. Makkelijk te monteren.',
+        price: 279.95, popular: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-king-180-cm-angle-zomer.png?v=1768557312',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180-nieuw-2.jpg?v=1770128176'
@@ -842,10 +814,9 @@ const products = [
     {
         id: 3, cat: 'standaard',
         name: 'Picknicktafel 240 cm KING® / 4 cm dikte',
-        specs: '240 × 162 × 77 cm (L×B×H) | 4 cm planken | 8-10 personen',
-        desc: 'Ruime KING® picknicktafel voor grotere gezelschappen. Extra pootstuk in het midden voor optimale stabiliteit. FSC-gecertificeerd, geïmpregneerd vurenhout (4 cm). Ideaal voor tuinfeesten, scholen en horeca. Met parasolgat (4 cm).',
-        price: 319.95,
-        popular: true,
+        specs: '240 × 162 × 77 cm (L×B×H) | 4 cm planken | 8–10 personen',
+        desc: 'Ruime KING® picknicktafel voor grotere gezelschappen. Extra middenpoot voor optimale stabiliteit. Vurenhout 4 cm dik, geïmpregneerd. Ideaal voor tuinfeesten, scholen en horeca. Parasolgat aanwezig. Inclusief alle bevestigingsmaterialen.',
+        price: 319.95, popular: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240_cm_Picknicktafel.png?v=1770127297',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240_cm_picknicktafels.jpg?v=1770127297'
@@ -854,10 +825,9 @@ const products = [
     {
         id: 4, cat: 'standaard',
         name: 'Picknicktafel 300 cm KING® / 4 cm dikte',
-        specs: '300 × 162 × 77 cm (L×B×H) | 4 cm planken | 10-12 personen',
-        desc: 'Onze grootste standaard KING® picknicktafel. Biedt ruimschoots plaats aan 10–12 personen. Extra middenpoot voor maximale stabiliteit. FSC-gecertificeerd vurenhout (4 cm). Ideaal voor verenigingen, scholen, evenementen en horeca.',
-        price: 389.95,
-        popular: false,
+        specs: '300 × 162 × 77 cm (L×B×H) | 4 cm planken | 10–12 personen',
+        desc: 'Onze grootste standaard KING® picknicktafel. Ruimte voor 10–12 personen. Extra middenpoot voor maximale stevigheid. Vurenhout 4 cm dik, geïmpregneerd. Ideaal voor verenigingen, scholen en horeca. Parasolgat aanwezig.',
+        price: 389.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/IMG_7646.jpg?v=1769581885',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/300_cm_picknicktafel.jpg?v=1769603888'
@@ -866,10 +836,9 @@ const products = [
     {
         id: 5, cat: 'standaard',
         name: 'Picknicktafel 150 cm KING® / 4 cm dikte',
-        specs: '150 × 162 × 77 cm (L×B×H) | 4 cm planken | 4-6 personen',
-        desc: 'De tussenmaat van KING®: ruimer dan de 140 cm maar compacter dan de 180 cm. Perfect voor kleine tot middelgrote tuinen. FSC-gecertificeerd vurenhout, geïmpregneerd, met parasolgat.',
-        price: 249.95,
-        popular: false,
+        specs: '150 × 162 × 77 cm (L×B×H) | 4 cm planken | 4–6 personen',
+        desc: 'De tussenmaat van KING®: ruimer dan 140 cm, compacter dan 180 cm. Perfect voor kleine tot middelgrote tuinen. Vurenhout, geïmpregneerd voor het hele jaar buiten. Afgeronde hoeken en parasolgat standaard aanwezig.',
+        price: 249.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K150-1-900-2.jpg?v=1734441379'
         ]
@@ -877,67 +846,91 @@ const products = [
     {
         id: 6, cat: 'standaard',
         name: 'SMART Picknicktafel 180 cm KING®',
-        specs: '180 × 162 × 77 cm (L×B×H) | 4 cm planken | inklapbaar',
-        desc: 'De SMART KING® is volledig inklapbaar — ideaal als u opslagruimte wil besparen. Zelfde topkwaliteit FSC-vurenhout (4 cm dik), snel op te vouwen en weg te zetten. Perfect voor evenementengebruik of als extra tafel.',
-        price: 319.95,
-        popular: false,
+        specs: '180 × 162 × 77 cm | 4 cm planken | volledig inklapbaar',
+        desc: 'De SMART KING® is volledig inklapbaar — ideaal als u opslagruimte wil besparen. Zelfde kwaliteit vurenhout (4 cm), snel op te vouwen en weg te zetten. Uitstekend voor evenementengebruik, extra tafel of kleinere bergruimte.',
+        price: 319.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/smart-geheel-close.jpg?v=1769444861'
         ]
     },
+    {
+        id: 7, cat: 'standaard',
+        name: 'Family Picknicktafel 240 cm Comfort KING® / 4 cm',
+        specs: '240 × 162 × 77 cm | 4 cm planken | extra brede zitbanken | 8–10 pers.',
+        desc: 'De Family Comfort heeft extra brede zitbanken voor optimaal zitcomfort. Perfect voor gezinnen die langer buiten verblijven. Vurenhout 4 cm dik, geïmpregneerd. Inclusief parasolgat. Makkelijk te monteren met meegeleverde handleiding.',
+        price: 349.95, popular: true,
+        images: [
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/comfort-basis-1000.jpg?v=1732628686'
+        ]
+    },
+    {
+        id: 8, cat: 'standaard',
+        name: 'Picknicktafel 240 cm Comfort KING® (extra stevig) / 4 cm',
+        specs: '240 × 162 × 77 cm | 4 cm planken | extra verstevigd | 8–10 pers.',
+        desc: 'De extra stevige Comfort 240 cm. Versterkte constructie voor zwaarder gebruik — perfect voor scholen, horecazaken en evenementenbedrijven. Vurenhout, 4 cm dik, geïmpregneerd. Inclusief parasolgat en bevestigingsmaterialen.',
+        price: 379.95, popular: false,
+        images: [
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-240cm-op-houten-terras-met-bergzicht.png?v=1769600643'
+        ]
+    },
+    {
+        id: 9, cat: 'standaard',
+        name: 'Picknicktafel Sam – 180 cm | 42 mm KING®',
+        specs: '180 cm | 42 mm planken | bijzonder model',
+        desc: 'De Picknicktafel Sam is een uniek KING® model met 42 mm planken en een onderscheidend design. Combineert stijl en stevigheid in één. Vurenhout, geïmpregneerd voor langdurig buitengebruik.',
+        price: 299.95, popular: false,
+        images: [
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-sam-park.png?v=1774777307'
+        ]
+    },
     /* ── MET RUGLEUNING ── */
     {
-        id: 10, cat: 'rugleuning',
-        name: 'Picknicktafel 140 cm KING® met rugleuningen',
-        specs: '140 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 4-6 personen',
-        desc: 'De compacte KING® 140 cm met extra zitcomfort dankzij twee solide rugleuningen. Ideaal voor gezinnen die langer buiten willen verblijven. FSC-gecertificeerd vurenhout, volledig behandeld voor buitengebruik.',
-        price: 319.95,
-        popular: false,
+        id: 20, cat: 'rugleuning',
+        name: 'Picknicktafel 140 cm KING® met Rugleuningen',
+        specs: '140 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 4–6 pers.',
+        desc: 'De compacte KING® 140 cm met 2 solide rugleuningen voor extra zitcomfort. Ideaal voor gezinnen die langer buiten verblijven. Vurenhout, 4 cm dik, geïmpregneerd. Parasolgat aanwezig. Inclusief alle bevestigingsmaterialen.',
+        price: 319.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/140_picknicktafels_met_rugleuningen.jpg?v=1732022936'
         ]
     },
     {
-        id: 11, cat: 'rugleuning',
-        name: 'Picknicktafel 180 cm KING® met rugleuningen',
-        specs: '180 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 6-8 personen',
-        desc: 'De populairste KING® picknicktafel, nu met twee comfortabele rugleuningen. Perfect voor langere maaltijden en gezellige bijeenkomsten. FSC-gecertificeerd, geïmpregneerd vurenhout (4 cm dikte).',
-        price: 359.95,
-        popular: true,
+        id: 21, cat: 'rugleuning',
+        name: 'Picknicktafel 180 cm KING® met Rugleuningen',
+        specs: '180 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 6–8 pers.',
+        desc: 'De populairste KING® picknicktafel, nu met 2 comfortabele rugleuningen. Perfect voor langere maaltijden en gezellige bijeenkomsten. Vurenhout 4 cm dik, geïmpregneerd. Parasolgat aanwezig.',
+        price: 359.95, popular: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180RUGLEU2.jpg?v=1748329825'
         ]
     },
     {
-        id: 12, cat: 'rugleuning',
-        name: 'Picknicktafel 240 cm KING® met rugleuningen',
-        specs: '240 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 8-10 personen',
-        desc: 'Ruime KING® 240 cm met 2 rugleuningen voor extra comfort bij langdurig buiten zitten. Middelste poot voor stevigheid. Ideaal voor scholen, horecazaken en grote gezinnen. FSC-hout, 4 cm dik.',
-        price: 459.95,
-        popular: false,
+        id: 22, cat: 'rugleuning',
+        name: 'Picknicktafel 240 cm KING® met Rugleuningen',
+        specs: '240 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 8–10 pers.',
+        desc: 'Ruime KING® 240 cm met 2 rugleuningen voor extra comfort bij langdurig buiten zitten. Extra middenpoot voor stevigheid. Ideaal voor scholen, horecazaken en grote gezinnen. Vurenhout, 4 cm planken.',
+        price: 459.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-park.png?v=1769528181',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240_cm_picknicktafels_met_rugleuningen.jpg?v=1769528181'
         ]
     },
     {
-        id: 13, cat: 'rugleuning',
-        name: 'Picknicktafel 300 cm KING® met 2 rugleuningen',
-        specs: '300 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 10-12 personen',
-        desc: 'De imposante KING® 300 cm voorzien van twee rugleuningen. Maximale ruimte én comfort voor grote groepen. Extra middenpoot garandeert stabiliteit. Ideaal voor professioneel gebruik, evenementen en scholen.',
-        price: 519.95,
-        popular: false,
+        id: 23, cat: 'rugleuning',
+        name: 'Picknicktafel 300 cm KING® met 2 Rugleuningen',
+        specs: '300 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 10–12 pers.',
+        desc: 'De imposante KING® 300 cm met 2 rugleuningen. Maximale ruimte én comfort voor grote groepen. Extra middenpoot voor stabiliteit. Ideaal voor professioneel gebruik, evenementen en scholen. Geïmpregneerd vurenhout.',
+        price: 519.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K300rug-vk1.jpg?v=1732013122'
         ]
     },
     {
-        id: 14, cat: 'rugleuning',
-        name: 'Family Picknicktafel 240 cm Comfort KING® met 4 rugleuningen',
-        specs: '240 × 162 × 77 cm | 4 cm planken | + 4 rugleuningen | 8-10 personen',
-        desc: 'De ultieme family picknicktafel: de KING® 240 cm Comfort met maar liefst 4 rugleuningen (aan alle kanten). Maximale zitcomfort voor het hele gezin. Stevige constructie, FSC-hout, 4 cm planken.',
-        price: 549.95,
-        popular: true,
+        id: 24, cat: 'rugleuning',
+        name: 'Family Picknicktafel 240 cm Comfort KING® met 4 Rugleuningen',
+        specs: '240 × 162 × 77 cm | 4 cm planken | + 4 rugleuningen | 8–10 pers.',
+        desc: 'De ultieme family picknicktafel: de KING® 240 cm Comfort met 4 rugleuningen (rondom aan alle kanten). Maximaal zitcomfort voor het hele gezin. Stevige constructie, vurenhout 4 cm planken. Inclusief parasolgat.',
+        price: 549.95, popular: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Comfort_Picknicktafel_met_4_rugleuningen.jpg?v=1747313467',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/comfort-basis-1000.jpg?v=1732628686'
@@ -945,455 +938,296 @@ const products = [
     },
     /* ── ROYAL KING ── */
     {
-        id: 20, cat: 'royal',
+        id: 30, cat: 'royal',
         name: 'Picknicktafel 180 cm ROYAL KING® / 4,5 cm dikte',
-        specs: '180 × 162 × 77 cm | 4,5 cm planken | 6-8 personen',
-        desc: 'De ROYAL KING® 180 cm is de premium versie met extra dikke planken van 4,5 cm. Uitzonderlijk robuust en zwaarder dan de standaard KING®. Ideaal voor intensief gebruik of wie het allerbeste wil. FSC-gecertificeerd.',
-        price: 329.95,
-        popular: false,
+        specs: '180 × 162 × 77 cm | 4,5 cm planken | 6–8 personen | premium',
+        desc: 'De ROYAL KING® 180 cm is de premium versie met extra dikke planken van 4,5 cm. Uitzonderlijk robuust en zwaarder dan de standaard KING®. Ideaal voor intensief gebruik of wie het allerbeste wil. Geïmpregneerd vurenhout.',
+        price: 329.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/180_cm_robuuste_pick_nick_tafel.jpg?v=1732022881'
         ]
     },
     {
-        id: 21, cat: 'royal',
+        id: 31, cat: 'royal',
         name: 'Picknicktafel 200 cm ROYAL KING® / 4,5 cm dikte',
-        specs: '200 × 162 × 77 cm | 4,5 cm planken | 8 personen',
-        desc: 'De ROYAL KING® 200 cm: premium kwaliteit met 4,5 cm dikke planken. Tussenmaat voor wie iets ruimer wil dan 180 cm maar compacter dan 240 cm. FSC-gecertificeerd vurenhout, uiterst stabiel.',
-        price: 359.95,
-        popular: false,
+        specs: '200 × 162 × 77 cm | 4,5 cm planken | 8 personen | premium',
+        desc: 'De ROYAL KING® 200 cm: premium kwaliteit met 4,5 cm dikke planken. Tussenmaat voor wie iets ruimer wil dan 180 cm. Uiterst stabiel en duurzaam. Geïmpregneerd vurenhout voor het hele jaar buiten.',
+        price: 359.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-in-moderne-stadstuin.png?v=1769599690',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/200_cm_picknicktafels.jpg?v=1769599791'
         ]
     },
     {
-        id: 22, cat: 'royal',
+        id: 32, cat: 'royal',
         name: 'Picknicktafel 240 cm ROYAL KING® / 4,5 cm dikte',
-        specs: '240 × 162 × 77 cm | 4,5 cm planken | 8-10 personen',
-        desc: 'De ROYAL KING® 240 cm combineert royale afmetingen met maximale robuustheid (4,5 cm planken). Indrukwekkend zitmeubel voor tuin, terras of park. Extra middenpoot voor stabiliteit. FSC-gecertificeerd.',
-        price: 419.95,
-        popular: false,
+        specs: '240 × 162 × 77 cm | 4,5 cm planken | 8–10 personen | premium',
+        desc: 'De ROYAL KING® 240 cm combineert royale afmetingen met maximale robuustheid (4,5 cm planken). Extra middenpoot voor stabiliteit. Indrukwekkend zitmeubel voor tuin, terras of park. Geïmpregneerd vurenhout.',
+        price: 419.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/gras-platteland-bokeh.png?v=1769529367'
         ]
     },
     {
-        id: 23, cat: 'royal',
+        id: 33, cat: 'royal',
         name: 'Picknicktafel 300 cm ROYAL KING® / 4,5 cm dikte',
-        specs: '300 × 162 × 77 cm | 4,5 cm planken | 10-12 personen',
+        specs: '300 × 162 × 77 cm | 4,5 cm planken | 10–12 personen | premium',
         desc: 'Onze meest imposante picknicktafel: de ROYAL KING® 300 cm met 4,5 cm dikke planken. Maximale stevigheid voor intensief gebruik. Perfect voor horecazaken, evenementenorganisatoren en grote bedrijven.',
-        price: 499.95,
-        popular: false,
+        price: 499.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-op-houten-terras-met-bergzicht.png?v=1769583375'
         ]
     },
-    /* ── SPECIAAL (ROND / VIERKANT) ── */
+    /* ── SPECIAAL ── */
     {
-        id: 30, cat: 'special',
+        id: 40, cat: 'special',
         name: 'Picknicktafel Rond 120 cm KING® / 4 cm dikte',
-        specs: 'Ø 120 cm | hoogte 77 cm | 4 cm planken | 4-6 personen',
-        desc: 'Sfeervolle ronde KING® picknicktafel. Ideaal voor kleinere tuinen en creëert een gezellige, intieme sfeer. FSC-gecertificeerd vurenhout (4 cm), parasolgat, afgeronde hoeken. Iedereen zit naar elkaar toe.',
-        price: 299.95,
-        popular: false,
+        specs: 'Ø 120 cm | hoogte 77 cm | 4 cm planken | 4–6 personen',
+        desc: 'Sfeervolle ronde KING® picknicktafel. Ideaal voor kleinere tuinen en creëert een gezellige, intieme sfeer. Geïmpregneerd vurenhout (4 cm). Parasolgat aanwezig. Iedereen zit naar elkaar toe — bevordert gezelligheid.',
+        price: 299.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Picknicktafel_rond_-_park.jpg?v=1732023456'
         ]
     },
     {
-        id: 31, cat: 'special',
-        name: 'Ronde Picknicktafel met Rugleuningen KING® (265 × 265 cm)',
-        specs: '265 × 265 cm | 4 cm planken | met rugleuningen | 8-10 personen',
-        desc: 'De grote ronde KING® picknicktafel met rugleuningen rondom — maximaal comfort en een prachtig middelpunt voor elke tuin. FSC-gecertificeerd, geïmpregneerd vurenhout. Indrukwekkend zitmeubel voor grote gezelschappen.',
-        price: 599.95,
-        popular: false,
+        id: 41, cat: 'special',
+        name: 'Ronde Picknicktafel met Rugleuningen KING® (265×265 cm)',
+        specs: '265 × 265 cm | 4 cm planken | + rugleuningen rondom | 8–10 pers.',
+        desc: 'De grote ronde KING® met rugleuningen rondom — maximaal comfort en een prachtig middelpunt voor elke tuin. Geïmpregneerd vurenhout. Indrukwekkend zitmeubel voor grote gezelschappen en professionele gebruikers.',
+        price: 599.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Ronde_Picknicktafel_met_Rugleuningen.jpg?v=1732022609'
         ]
     },
     {
-        id: 32, cat: 'special',
-        name: 'Picknicktafel Vierkant 200×200 cm KING® / 4 cm dikte',
-        specs: '200 × 200 cm | hoogte 77 cm | 4 cm planken | 8-10 personen',
-        desc: 'De grote vierkante KING® picknicktafel: 200×200 cm voor een royaal zitoppervlak. Iedereen zit gelijkwaardig aan tafel, ideaal voor gezellige bijeenkomsten. FSC-gecertificeerd, geïmpregneerd vurenhout (4 cm).',
-        price: 449.95,
-        popular: false,
+        id: 42, cat: 'special',
+        name: 'Picknicktafel Vierkant 200×200 cm KING® / 4 cm',
+        specs: '200 × 200 cm | hoogte 77 cm | 4 cm planken | 8–10 personen',
+        desc: 'De grote vierkante KING®: 200×200 cm voor een royaal zitoppervlak. Iedereen zit gelijkwaardig, ideaal voor gezellige bijeenkomsten. Geïmpregneerd vurenhout (4 cm). Parasolgat aanwezig.',
+        price: 449.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/IMG_0067.jpg?v=1769428690',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Picknicktafel_vierkant.jpg?v=1770799928'
         ]
     },
     {
-        id: 33, cat: 'special',
+        id: 43, cat: 'special',
         name: 'Vierkante Picknicktafel XXL KING® 200×200 cm (extra stevig)',
-        specs: '200 × 200 cm | hoogte 77 cm | 4 cm planken | extra robuust',
-        desc: 'De XXL vierkante KING® picknicktafel met extra verstevigde constructie. Maximale robuustheid voor intensief gebruik. FSC-gecertificeerd vurenhout, 4 cm planken. Scholen, horecazaken en evenementen.',
-        price: 479.95,
-        popular: false,
+        specs: '200 × 200 cm | 4 cm planken | extra robuuste constructie',
+        desc: 'De XXL vierkante KING® met extra verstevigde constructie. Maximale robuustheid voor intensief gebruik. Geïmpregneerd vurenhout, 4 cm planken. Ideaal voor scholen, horecazaken en drukke evenementenlocaties.',
+        price: 479.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/kvk-vierkant-2.png?v=1767627846',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Vierkante_picknicktafel_-_extra_stevig.jpg?v=1769597980'
         ]
     },
     {
-        id: 34, cat: 'special',
+        id: 44, cat: 'special',
         name: 'Ronde Picknicktafel XXL ROYAL KING® | 45 mm | 195×195 cm',
-        specs: '195 × 195 cm | hoogte 77 cm | 4,5 cm planken | premium',
-        desc: 'De premium ronde ROYAL KING® XXL: 4,5 cm dikke planken en een diameter van 195 cm. Het ultieme blikvanger voor elke tuin. Onmiskenbaar aanwezig, FSC-gecertificeerd, voor wie het allerbeste kiest.',
-        price: 599.95,
-        popular: false,
+        specs: '195 × 195 cm | hoogte 77 cm | 4,5 cm planken | premium rond',
+        desc: 'De premium ronde ROYAL KING® XXL: 4,5 cm dikke planken en een diameter van 195 cm. Het ultieme blikvanger voor elke tuin. Onmiskenbaar aanwezig, geïmpregneerd vurenhout. Voor wie het allerbeste wil.',
+        price: 599.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/RKROND-1.jpg?v=1769431706'
         ]
     },
     {
-        id: 35, cat: 'special',
-        name: 'Ronde Picknicktafel voor Kleuters Jimmy (120×120 cm) KING®',
-        specs: '120 × 120 cm | kindermaat | 4-6 kinderen',
-        desc: 'De vrolijke ronde kinderpicknicktafel Jimmy van KING®. Speciaal ontworpen voor kleuters met veilige afgeronde hoeken en een lager zitvlak. FSC-gecertificeerd vurenhout, perfect formaat voor de jongste tuinliefhebbers.',
-        price: 199.95,
-        popular: false,
+        id: 45, cat: 'special',
+        name: 'Kinderpicknicktafel Jimmy (120×120 cm) KING®',
+        specs: '120 × 120 cm | kindermaat | hoogte aangepast voor kleuters',
+        desc: 'De vrolijke ronde kinderpicknicktafel Jimmy van KING®. Speciaal ontworpen voor kleuters met veilige afgeronde hoeken en een lager zitvlak. Geïmpregneerd vurenhout. Perfect formaat voor de jongste tuinliefhebbers.',
+        price: 199.95, popular: false,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/jimmy_kinderpicknicktafel_1.png?v=1770045259',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Jimmy_kinderpicknicktafel.jpg?v=1769442391'
         ]
     },
-    {
-        id: 36, cat: 'special',
-        name: 'Picknicktafel Sam – 180 cm | 42 mm KING®',
-        specs: '180 cm | 42 mm planken | bijzonder ontwerp',
-        desc: 'De Picknicktafel Sam is een uniek KING® model met 42 mm planken en een bijzonder design. Combinatie van stijl en stevigheid. FSC-gecertificeerd vurenhout, geschikt voor langdurig buitengebruik.',
-        price: 299.95,
-        popular: false,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-sam-park.png?v=1774777307'
-        ]
-    },
-    /* ── FAMILY / COMFORT ── */
-    {
-        id: 40, cat: 'standaard',
-        name: 'Family Picknicktafel 240 cm Comfort KING® / 4 cm dikte',
-        specs: '240 × 162 × 77 cm | 4 cm planken | extra brede banken | 8-10 pers.',
-        desc: 'De Family Comfort KING® heeft extra brede zitbanken voor optimaal comfort. Perfect voor gezinnen die langer aan tafel verblijven. FSC-gecertificeerd, geïmpregneerd vurenhout, 4 cm dik. Inclusief parasolgat.',
-        price: 349.95,
-        popular: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/comfort-basis-1000.jpg?v=1732628686'
-        ]
-    },
-    {
-        id: 41, cat: 'standaard',
-        name: 'Picknicktafel 240 cm Comfort KING® (extra stevig) / 4 cm',
-        specs: '240 × 162 × 77 cm | 4 cm planken | extra verstevigd | 8-10 pers.',
-        desc: 'De extra stevige versie van de KING® Comfort 240 cm. Versterkte constructie voor zwaarder gebruik — perfect voor scholen, horecazaken en evenementenbedrijven. FSC-gecertificeerd vurenhout.',
-        price: 379.95,
-        popular: false,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-240cm-op-houten-terras-met-bergzicht.png?v=1769600643'
-        ]
-    },
-    /* ── 2DE KEUZE ── */
-    {
-        id: 50, cat: 'second',
-        name: 'Picknicktafel 180 cm KING® — 2de Keuze',
-        specs: '180 × 162 × 77 cm | 4 cm planken | lichte onvolkomenheid',
-        desc: 'Zelfde topkwaliteit KING® constructie, maar met een kleine cosmetische onvolkomenheid (lichte verkleuring of minimaal krasje). Functionaliteit en stevigheid 100% gegarandeerd. Ideale prijs-kwaliteitverhouding voor het bewuste budget.',
-        price: 199.95,
-        oldPrice: 279.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180-nieuw-2.jpg?v=1770128176',
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180-vk5.jpg?v=1770128176'
-        ]
-    },
-    {
-        id: 51, cat: 'second',
-        name: 'Picknicktafel 140 cm KING® — 2de Keuze',
-        specs: '140 × 162 × 77 cm | 4 cm planken | lichte onvolkomenheid',
-        desc: 'De compacte KING® 140 cm als 2de keuze: minimaal cosmetisch defect (kleine verkleuring of krasje), maar volledig functioneel en even stabiel als het eerste-keuze model. Geweldig voordeel voor budget-bewuste kopers.',
-        price: 169.95,
-        oldPrice: 229.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K140-tweedekeuze.png?v=1757268657',
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/140_picknicktafel.jpg?v=1770126066'
-        ]
-    },
-    {
-        id: 52, cat: 'second',
-        name: 'Picknicktafel 240 cm KING® — 2de Keuze',
-        specs: '240 × 162 × 77 cm | 4 cm planken | lichte onvolkomenheid',
-        desc: 'De ruime KING® 240 cm als 2de keuze deal. Minimale cosmetische onvolkomenheid, volledig functioneel. Extra pootstuk voor stabiliteit aanwezig. Ideaal als u een grote picknicktafel wil voor een scherpe prijs.',
-        price: 239.95,
-        oldPrice: 319.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/picknicktafel-tweede-keuze-patio.png?v=1774715197',
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240_cm_picknicktafels.jpg?v=1770127297'
-        ]
-    },
-    {
-        id: 53, cat: 'second',
-        name: 'Picknicktafel 300 cm KING® — 2de Keuze',
-        specs: '300 × 162 × 77 cm | 4 cm planken | lichte onvolkomenheid',
-        desc: 'De grote KING® 300 cm als 2de keuze — kleine schoonheidsfout, maar volledig functioneel. Levering in Nederland mogelijk. Inclusief alle bevestigingsmaterialen. Ideaal voor scholen en verenigingen met een budget.',
-        price: 289.95,
-        oldPrice: 389.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/300_cm_picknicktafel.jpg?v=1769603888'
-        ]
-    },
-    {
-        id: 54, cat: 'second',
-        name: 'Picknicktafel 180 cm KING® met Rugleuningen — 2de Keuze',
-        specs: '180 × 162 × 77 cm | 4 cm planken | + 2 rugleuningen | 2de keuze',
-        desc: 'De comfort KING® 180 cm met rugleuningen als 2de keuze. Licht kleurverschil mogelijk in de rugleuningen. Functionaliteit volledig behouden. Dezelfde stevige constructie, met zitcomfort — voor een aantrekkelijke prijs.',
-        price: 259.95,
-        oldPrice: 359.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180RUGLEU2.jpg?v=1748329825'
-        ]
-    },
-    {
-        id: 55, cat: 'second',
-        name: 'SMART Picknicktafel 180 cm KING® — 2de Keuze',
-        specs: '180 × 162 × 77 cm | 4 cm planken | inklapbaar | 2de keuze',
-        desc: 'De handige inklapbare SMART KING® 180 cm als 2de keuze. Kleine cosmetische onvolkomenheid, maar even functioneel inklapbaar. Ideaal voor occasioneel gebruik of als extra tafel.',
-        price: 229.95,
-        oldPrice: 319.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/Goedkope_picknicktafels_180_cm.jpg?v=1775313927'
-        ]
-    },
-    {
-        id: 56, cat: 'second',
-        name: 'Ronde Picknicktafel XXL ROYAL KING® — 2de Keuze',
-        specs: '195 × 195 cm | 4,5 cm planken | premium rond | 2de keuze',
-        desc: 'De premium ronde ROYAL KING® XXL als 2de keuze: zelfde indrukwekkende 4,5 cm planken en 195 cm diameter, maar met een kleine cosmetische onvolkomenheid. Enorme besparing op een topproduct.',
-        price: 429.95,
-        oldPrice: 599.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/RKROND-1.jpg?v=1769431706'
-        ]
-    },
-    {
-        id: 57, cat: 'second',
-        name: 'Family Picknicktafel 240 cm Comfort KING® — 2de Keuze',
-        specs: '240 cm | 4 cm planken | extra brede banken | 2de keuze',
-        desc: 'De Family Comfort 240 cm als 2de keuze. Dezelfde extra brede zitbanken en solide constructie, met een kleine cosmetische afwijking. Perfect voor gezinnen met een scherpe prijs-kwaliteitsfocus.',
-        price: 259.95,
-        oldPrice: 349.95,
-        isSecond: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/comfort-basis-1000.jpg?v=1732628686'
-        ]
-    },
     /* ── PAKKETTEN ── */
     {
-        id: 60, cat: 'pack',
-        name: '6-PACK Picknicktafel 180 cm KING® (1e keuze)',
+        id: 50, cat: 'pack',
+        name: '6-PACK Picknicktafel 180 cm KING®',
         specs: '6 stuks | 180 cm | 4 cm planken | bulkvoordeel',
-        desc: 'Voordelig pakket van 6 KING® picknicktafels 180 cm — ideaal voor scholen, bedrijven, evenementenorganisatoren of verhuurders. Aanzienlijk goedkoper dan afzonderlijk bestellen. FSC-gecertificeerd, alle montage materialen inbegrepen.',
-        price: 1399.95,
-        popular: false,
-        isPack: true,
+        desc: 'Voordelig pakket van 6 KING® picknicktafels 180 cm. Ideaal voor scholen, bedrijven, evenementenorganisatoren of verhuurders. Aanzienlijk goedkoper dan afzonderlijk bestellen. Elk met alle bevestigingsmaterialen.',
+        price: 1399.95, popular: false, isPack: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/design-5-editorial-premium.png?v=1770128176',
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/bulkvoordeel-6-stuks.png?v=1769598835'
         ]
     },
     {
-        id: 61, cat: 'pack',
-        name: '6-PACK Picknicktafel 240 cm KING® (1e keuze)',
-        specs: '6 stuks | 240 cm | 4 cm planken | bulkvoordeel',
-        desc: 'Zes KING® 240 cm picknicktafels in één bestelling — maximale besparing voor professionele afnemers. Elk met extra middenpoot en parasolgat. FSC-gecertificeerd. Ideaal voor grotere evenementen en instellingen.',
-        price: 1699.95,
-        popular: false,
-        isPack: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/design-1-240cm-pack-deal.png?v=1770127297'
-        ]
-    },
-    {
-        id: 62, cat: 'pack',
-        name: '6-PACK Picknicktafel 300 cm KING® (1e keuze)',
-        specs: '6 stuks | 300 cm | 4 cm planken | bulkvoordeel',
-        desc: 'Zes KING® 300 cm picknicktafels — de maximale bulkdeal voor evenementenbedrijven, scholen en recreatieparken. Elk met extra middenpoot voor stabiliteit. Alle montage materialen inbegrepen.',
-        price: 1999.95,
-        popular: false,
-        isPack: true,
-        images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/bulkvoordeel-6-pack-300cm-king.png?v=1769603888'
-        ]
-    },
-    {
-        id: 63, cat: 'pack',
-        name: '6-PACK Picknicktafel 140 cm KING® (1e keuze)',
+        id: 51, cat: 'pack',
+        name: '6-PACK Picknicktafel 140 cm KING®',
         specs: '6 stuks | 140 cm | 4 cm planken | schoolpakket',
-        desc: 'Zes compacte KING® 140 cm tafels — het perfecte schoolpakket of pakket voor kleinere buitenruimtes. FSC-gecertificeerd, geïmpregneerd vurenhout. Groot voordeel ten opzichte van losse aankoop.',
-        price: 1149.95,
-        popular: false,
-        isPack: true,
+        desc: 'Zes compacte KING® 140 cm tafels — het perfecte schoolpakket of pakket voor kleinere buitenruimtes. Groot voordeel ten opzichte van losse aankoop. Elk met bevestigingsmaterialen.',
+        price: 1149.95, popular: false, isPack: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/bulkvoordeel-6-stuks.png?v=1769598835'
         ]
     },
     {
-        id: 64, cat: 'pack',
+        id: 52, cat: 'pack',
+        name: '6-PACK Picknicktafel 240 cm KING®',
+        specs: '6 stuks | 240 cm | 4 cm planken | bulkvoordeel',
+        desc: 'Zes KING® 240 cm picknicktafels in één bestelling — maximale besparing voor professionele afnemers. Elk met extra middenpoot en parasolgat. Ideaal voor grotere evenementen en instellingen.',
+        price: 1699.95, popular: false, isPack: true,
+        images: [
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/design-1-240cm-pack-deal.png?v=1770127297'
+        ]
+    },
+    {
+        id: 53, cat: 'pack',
+        name: '6-PACK Picknicktafel 300 cm KING®',
+        specs: '6 stuks | 300 cm | 4 cm planken | bulkvoordeel',
+        desc: 'Zes KING® 300 cm picknicktafels — de maximale bulkdeal voor evenementenbedrijven, scholen en recreatieparken. Elk met extra middenpoot voor stabiliteit. Alle montage materialen inbegrepen.',
+        price: 1999.95, popular: false, isPack: true,
+        images: [
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/bulkvoordeel-6-pack-300cm-king.png?v=1769603888'
+        ]
+    },
+    {
+        id: 54, cat: 'pack',
         name: '6-PACK SMART Picknicktafel 180 cm KING®',
         specs: '6 stuks | 180 cm | inklapbaar | bulkvoordeel',
-        desc: 'Zes inklapbare SMART KING® 180 cm tafels — ideaal voor evenementenverhuur en opslag. Snel opklapbaar en eenvoudig te stapelen. Groot voordeel op de stukprijs.',
-        price: 1599.95,
-        popular: false,
-        isPack: true,
+        desc: 'Zes inklapbare SMART KING® 180 cm tafels. Ideaal voor evenementenverhuur en opslag. Snel opklapbaar en eenvoudig te stapelen. Groot voordeel op de stukprijs.',
+        price: 1599.95, popular: false, isPack: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/bulkvoordeel-6-pack-smart-picknicktafel-king.png?v=1769605686'
         ]
     },
     {
-        id: 65, cat: 'pack',
-        name: '6-PACK Picknicktafel 180 cm KING® — 2de Keuze',
-        specs: '6 stuks | 180 cm | 2de keuze | maximale besparing',
-        desc: 'Zes KING® 180 cm als 2de keuze: kleine cosmetische onvolkomenheden, volledig functioneel. De maximale deal voor wie kwaliteit én een ultra-scherpe prijs wil combineren.',
-        price: 999.95,
-        oldPrice: 1399.95,
-        isSecond: true, isPack: true,
+        id: 55, cat: 'pack',
+        name: '6 PACK Picknicktafel 240 cm Comfort KING® (extra stevig)',
+        specs: '6 stuks | 240 cm extra stevig | bulkvoordeel',
+        desc: 'Zes extra stevige Comfort 240 cm KING® tafels — de ultieme bulkbestelling voor intensief professioneel gebruik. Elk met versterkte constructie, geïmpregneerd vurenhout en alle bevestigingsmaterialen.',
+        price: 1899.95, popular: false, isPack: true,
         images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/K180-vk5.jpg?v=1770128176'
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240cm-comfort-king-pakket.png?v=1769600229'
         ]
     },
     {
-        id: 66, cat: 'pack',
-        name: '6-PACK Picknicktafel 240 cm KING® — 2de Keuze',
-        specs: '6 stuks | 240 cm | 2de keuze | maximale besparing',
-        desc: 'Zes KING® 240 cm als 2de keuze — ideaal voordeel voor professionele gebruikers met een budget. Kleine schoonheidsfout, volledig functioneel. Inclusief alle bevestigingsmaterialen.',
-        price: 1199.95,
-        oldPrice: 1699.95,
-        isSecond: true, isPack: true,
+        id: 56, cat: 'pack',
+        name: '6 PACK Picknicktafel 200 cm ROYAL KING® / 4,5 cm',
+        specs: '6 stuks | 200 cm | 4,5 cm planken | premium pakket',
+        desc: 'Zes ROYAL KING® 200 cm picknicktafels met 4,5 cm planken. Premium kwaliteitspakket voor wie alleen het allerbeste neemt. Ideaal voor luxe evenementenlocaties en premium horecazaken.',
+        price: 1799.95, popular: false, isPack: true,
         images: [
-            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/240_cm_picknicktafels.jpg?v=1770127297'
+            'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/200cm-royal-king-6-stuks.png?v=1769599227'
         ]
     },
     /* ── BESCHERMHOEZEN ── */
     {
-        id: 70, cat: 'hoes',
+        id: 60, cat: 'hoes',
         name: 'PVC-beschermhoes voor KING® Picknicktafel 180 cm',
-        specs: 'Waterdicht PVC | voor 180 cm KING® tafels',
-        desc: 'Bescherm uw KING® 180 cm picknicktafel het hele jaar tegen regen, zon en vuil. Duurzame waterdichte PVC-hoes met perfecte pasvorm. Verleng de levensduur van uw picknicktafel aanzienlijk.',
-        price: 29.95,
-        isCover: true,
+        specs: 'Waterdicht PVC | pasvorm voor 180 cm KING® modellen',
+        desc: 'Bescherm uw KING® 180 cm picknicktafel het hele jaar door tegen regen, zon, vuil en vorst. Duurzame waterdichte PVC-hoes met perfecte pasvorm. Verleng de levensduur van uw picknicktafel aanzienlijk.',
+        price: 29.95, isCover: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/zwarte-beschermhoes-bij-restaurant-in-regen.png?v=1769616596'
         ]
     },
     {
-        id: 71, cat: 'hoes',
+        id: 61, cat: 'hoes',
         name: 'PVC-beschermhoes voor KING® Picknicktafel 240 cm',
-        specs: 'Waterdicht PVC | voor 240 cm KING® tafels',
-        desc: 'Waterdichte PVC-beschermhoes speciaal voor de KING® 240 cm picknicktafel. Perfecte pasvorm, solide materiaal. Beschermt tegen alle weersomstandigheden en verlengt de levensduur van uw tafel.',
-        price: 44.95,
-        isCover: true,
+        specs: 'Waterdicht PVC | pasvorm voor 240 cm KING® modellen',
+        desc: 'Waterdichte PVC-beschermhoes voor de KING® 240 cm. Perfecte pasvorm, solide materiaal. Beschermt jaarrond tegen alle weersomstandigheden en verlengt de levensduur van uw tafel.',
+        price: 44.95, isCover: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/hoes_486bc2f5-f7e9-403f-add5-e12d2446ac13.jpg?v=1706789546'
         ]
     },
     {
-        id: 72, cat: 'hoes',
+        id: 62, cat: 'hoes',
         name: 'PVC-beschermhoes voor KING® Picknicktafel 300 cm',
-        specs: 'Waterdicht PVC | voor 300 cm KING® & ROYAL tafels',
-        desc: 'Duurzame waterdichte PVC-beschermhoes voor de 300 cm KING® én ROYAL KING® picknicktafels. Bescherm uw investering tegen regen, sneeuw en UV-stralen het hele jaar door.',
-        price: 54.95,
-        isCover: true,
+        specs: 'Waterdicht PVC | voor 300 cm KING® & ROYAL KING® tafels',
+        desc: 'Duurzame waterdichte PVC-hoes voor de 300 cm KING® én ROYAL KING® modellen. Bescherm uw investering tegen regen, sneeuw en UV-stralen. Het hele jaar optimale bescherming.',
+        price: 54.95, isCover: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/zwarte-beschermhoes-op-schoolplein.png?v=1769616106'
         ]
     },
     {
-        id: 73, cat: 'hoes',
-        name: 'PVC-beschermhoes voor Ronde/Vierkante KING® Picknicktafels',
-        specs: 'Waterdicht PVC | voor ronde & vierkante modellen',
-        desc: 'Waterdichte PVC-beschermhoes speciaal voor de ronde en vierkante KING® picknicktafels. Uitstekende bescherming, perfecte pasvorm. Hou uw bijzondere KING® tafel in topconditie het hele jaar.',
-        price: 44.95,
-        isCover: true,
+        id: 63, cat: 'hoes',
+        name: 'PVC-beschermhoes voor Ronde/Vierkante KING® Tafels',
+        specs: 'Waterdicht PVC | voor ronde & vierkante KING® modellen',
+        desc: 'Waterdichte PVC-beschermhoes speciaal voor de ronde en vierkante KING® picknicktafels. Perfecte pasvorm, uitstekende bescherming tegen alle weersinvloeden. Hou uw bijzondere tafel in topconditie.',
+        price: 44.95, isCover: true,
         images: [
             'https://cdn.shopify.com/s/files/1/0770/4697/2750/files/hoes_26846ec8-8570-4ea5-902b-1a78f74495a2.jpg?v=1706789547'
         ]
     }
 ];
 
-/* ═══════════════════════════
-   GALLERY LOGIC
-═══════════════════════════ */
-function buildGallery(product) {
-    const imgs = product.images;
-    if (!imgs || imgs.length === 0) return '<div class="product-gallery"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:2rem;">🖼️</div></div>';
+/* ═══════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════ */
+function buildGallery(p) {
+    const imgs = p.images || [];
     const slides = imgs.map((src, i) => `
         <div class="gallery-slide ${i===0?'active':''}" data-idx="${i}">
-            <img src="${src}" alt="" loading="lazy" onerror="this.parentElement.style.background='var(--sand)'">
+            <img src="${src}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='var(--sand)'">
         </div>`).join('');
-    const dots = imgs.length > 1 ? `<div class="gallery-dots">${imgs.map((_,i)=>`<button class="gallery-dot ${i===0?'active':''}" onclick="setSlide(this,${i})"></button>`).join('')}</div>` : '';
-    const nav = imgs.length > 1 ? `<button class="gallery-nav prev" onclick="changeSlide(this,-1)">‹</button><button class="gallery-nav next" onclick="changeSlide(this,1)">›</button>` : '';
+    const dots = imgs.length > 1
+        ? `<div class="gallery-dots">${imgs.map((_,i)=>`<button class="gallery-dot ${i===0?'active':''}" onclick="setSlide(this,${i})"></button>`).join('')}</div>`
+        : '';
+    const nav = imgs.length > 1
+        ? `<button class="gallery-nav prev" onclick="changeSlide(this,-1)">‹</button><button class="gallery-nav next" onclick="changeSlide(this,1)">›</button>`
+        : '';
     return `<div class="product-gallery"><div class="gallery-slides">${slides}</div>${dots}${nav}</div>`;
 }
 
-function setSlide(dotEl, idx) {
-    const gallery = dotEl.closest('.product-gallery');
-    gallery.querySelectorAll('.gallery-slide').forEach((s,i)=>s.classList.toggle('active',i===idx));
-    gallery.querySelectorAll('.gallery-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+function setSlide(dot, idx) {
+    const g = dot.closest('.product-gallery');
+    g.querySelectorAll('.gallery-slide').forEach((s,i) => s.classList.toggle('active', i===idx));
+    g.querySelectorAll('.gallery-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
 }
 
 function changeSlide(btn, dir) {
-    const gallery = btn.closest('.product-gallery');
-    const slides = gallery.querySelectorAll('.gallery-slide');
-    let cur = [...slides].findIndex(s=>s.classList.contains('active'));
+    const g = btn.closest('.product-gallery');
+    const slides = g.querySelectorAll('.gallery-slide');
+    let cur = [...slides].findIndex(s => s.classList.contains('active'));
     let next = (cur + dir + slides.length) % slides.length;
-    gallery.querySelectorAll('.gallery-slide').forEach((s,i)=>s.classList.toggle('active',i===next));
-    gallery.querySelectorAll('.gallery-dot').forEach((d,i)=>d.classList.toggle('active',i===next));
+    g.querySelectorAll('.gallery-slide').forEach((s,i) => s.classList.toggle('active', i===next));
+    g.querySelectorAll('.gallery-dot').forEach((d,i) => d.classList.toggle('active', i===next));
 }
 
-/* ═══════════════════════════
+/* ═══════════════════════════════════════
    RENDER PRODUCTS
-═══════════════════════════ */
-function formatPrice(p) { return '€' + p.toFixed(2).replace('.',','); }
+═══════════════════════════════════════ */
+const catLabels = {
+    standaard:'Standaard KING®', rugleuning:'Met Rugleuning',
+    royal:'Royal KING® 4,5 cm', special:'Speciaal model',
+    pack:'Pakketdeal', hoes:'Beschermhoes'
+};
 
-function getCategoryLabel(cat) {
-    const labels = { standaard:'Standaard KING®', rugleuning:'Met Rugleuning', royal:'Royal KING® 4,5cm', special:'Speciale modellen', second:'2de Keuze', pack:'Pakketdeal', hoes:'Beschermhoes' };
-    return labels[cat] || cat;
-}
-
-function renderProducts(filter='all') {
+function renderProducts(filter = 'all') {
     const grid = document.getElementById('productsGrid');
-    let list = filter === 'all' ? products : products.filter(p => p.cat === filter);
-    if (list.length === 0) { grid.innerHTML = '<p style="color:var(--text-muted);padding:40px">Geen producten gevonden in deze categorie.</p>'; return; }
+    const list = filter === 'all' ? products : products.filter(p => p.cat === filter);
+    if (!list.length) { grid.innerHTML = '<p style="color:var(--text-muted);padding:40px">Geen producten in deze categorie.</p>'; return; }
 
     grid.innerHTML = list.map(p => {
         const badges = [];
         if (p.popular) badges.push('<span class="badge badge-popular">⭐ Populair</span>');
-        if (p.isSecond) badges.push('<span class="badge badge-second">2de Keuze</span>');
-        if (p.isPack && !p.isSecond) badges.push('<span class="badge badge-pack">Pakket</span>');
+        if (p.isPack) badges.push('<span class="badge badge-pack">Pakket</span>');
         if (p.isCover) badges.push('<span class="badge badge-cover">Accessoire</span>');
-        if (!p.isSecond && !p.popular && !p.isCover && !p.isPack && p.cat === 'royal') badges.push('<span class="badge badge-new">Royal</span>');
+        if (p.cat === 'royal') badges.push('<span class="badge badge-royal">Royal 4,5 cm</span>');
 
-        const priceHTML = p.oldPrice
-            ? `<div class="price-block"><span class="price-old">${formatPrice(p.oldPrice)}</span><span class="price-main sale">${formatPrice(p.price)}</span></div>`
-            : `<div class="price-block"><span class="price-main">${formatPrice(p.price)}</span></div>`;
+        // Show discounted price
+        const discountedPrice = p.price - DISCOUNT;
 
         return `
-        <div class="product-card" data-id="${p.id}" data-cat="${p.cat}">
+        <div class="product-card">
             ${buildGallery(p)}
             <div class="badge-row">${badges.join('')}</div>
             <div class="product-info">
-                <div class="product-category">${getCategoryLabel(p.cat)}</div>
+                <div class="product-category">${catLabels[p.cat] || p.cat}</div>
                 <h3 class="product-title">${p.name}</h3>
                 <div class="product-specs">${p.specs}</div>
                 <p class="product-description">${p.desc}</p>
                 <div class="product-footer">
-                    ${priceHTML}
+                    <div class="price-block">
+                        <span class="price-main">${formatPrice(discountedPrice)}</span>
+                        <span class="price-discount-note">🎁 Incl. €10 korting | Excl. €49,95 verzending</span>
+                    </div>
                     <button class="btn-cart" id="btn-${p.id}" onclick="addToCart(${p.id}, this)">
                         🛒 Bestellen
                     </button>
@@ -1404,33 +1238,33 @@ function renderProducts(filter='all') {
 }
 
 function filterProducts(cat, btn) {
-    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     renderProducts(cat);
 }
 
-/* ═══════════════════════════
-   CART LOGIC
-═══════════════════════════ */
-let cart = JSON.parse(localStorage.getItem('cart_tuintafel') || '[]');
+/* ═══════════════════════════════════════
+   CART
+═══════════════════════════════════════ */
+let cart = JSON.parse(localStorage.getItem('cart_tuintafel_v2') || '[]');
 
 function addToCart(id, btn) {
-    const p = products.find(x=>x.id===id);
+    const p = products.find(x => x.id === id);
     if (!p) return;
-    const ex = cart.find(x=>x.id===id);
+    const ex = cart.find(x => x.id === id);
     if (ex) ex.qty++;
-    else cart.push({...p, qty:1});
+    else cart.push({ ...p, qty: 1 });
     saveCart();
     if (btn) {
         btn.textContent = '✓ Toegevoegd';
         btn.classList.add('added');
-        setTimeout(()=>{ btn.innerHTML='🛒 Bestellen'; btn.classList.remove('added'); }, 1800);
+        setTimeout(() => { btn.innerHTML = '🛒 Bestellen'; btn.classList.remove('added'); }, 1800);
     }
 }
 
 function saveCart() {
-    localStorage.setItem('cart_tuintafel', JSON.stringify(cart));
-    const total = cart.reduce((s,x)=>s+x.qty,0);
+    localStorage.setItem('cart_tuintafel_v2', JSON.stringify(cart));
+    const total = cart.reduce((s, x) => s + x.qty, 0);
     const el = document.getElementById('cartCount');
     el.textContent = total;
     el.style.display = total > 0 ? 'flex' : 'none';
@@ -1453,59 +1287,89 @@ function renderCart() {
         body.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><h3>Uw winkelwagen is leeg</h3><p>Ontdek onze KING® picknicktafels.</p></div>`;
         return;
     }
-    const subtotal = cart.reduce((s,x)=>s+(x.price*x.qty),0);
-    const shipping = 0;
-    const total = subtotal + shipping;
+    const subtotal = cart.reduce((s, x) => s + ((x.price - DISCOUNT) * x.qty), 0);
+    const discountTotal = cart.reduce((s, x) => s + (DISCOUNT * x.qty), 0);
+    const total = subtotal + SHIPPING;
+
     body.innerHTML = `
-        <div id="successBox" class="success-box"></div>
-        ${cart.map(item=>`
-        <div class="cart-item">
-            <img src="${item.images?.[0]||''}" alt="${item.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjkwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZjdmM2VlIi8+PC9zdmc+'">
-            <div>
-                <h4>${item.name}</h4>
-                <p>${item.specs}</p>
-            </div>
-            <div class="cart-controls">
-                <div class="qty-wrap">
-                    <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
-                    <span class="qty-val">${item.qty}</span>
-                    <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
-                </div>
-                <span class="item-price">${formatPrice(item.price*item.qty)}</span>
-                <button class="remove-item" onclick="removeItem(${item.id})" title="Verwijderen">🗑</button>
-            </div>
-        </div>`).join('')}
-        <div class="cart-summary">
-            <div class="sum-row"><span>Subtotaal:</span><span>${formatPrice(subtotal)}</span></div>
-            <div class="sum-row"><span>Verzendkosten:</span><span>Gratis 🎉</span></div>
-            <div class="sum-row total"><span>Totaal (incl. BTW):</span><span>${formatPrice(total)}</span></div>
+        <div class="cart-discount-notice">
+            <span style="font-size:1.8rem">🎁</span>
+            <div><strong>€${(DISCOUNT * cart.reduce((s,x)=>s+x.qty,0)).toFixed(2).replace('.',',')} korting toegepast!</strong><br>
+            Omdat u via tuintafel-kopen.nl bestelt (geen Google-advertentiekosten), geniet u automatisch van €10 per product.</div>
         </div>
-        <button class="checkout-cta" onclick="showCheckout()">Doorgaan naar afrekenen →</button>`;
+        ${cart.map(item => {
+            const dp = item.price - DISCOUNT;
+            return `
+            <div class="cart-item">
+                <img src="${item.images?.[0]||''}" alt="${item.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjkwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZjdmM2VlIi8+PC9zdmc+'">
+                <div>
+                    <h4>${item.name}</h4>
+                    <p>${item.specs}</p>
+                </div>
+                <div class="cart-controls">
+                    <div class="qty-wrap">
+                        <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+                        <span class="qty-val">${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+                    </div>
+                    <span class="item-price">${formatPrice(dp * item.qty)}</span>
+                    <button class="remove-item" onclick="removeItem(${item.id})">🗑</button>
+                </div>
+            </div>`;
+        }).join('')}
+        <div class="cart-summary">
+            <div class="sum-row"><span>Subtotaal producten:</span><span>${formatPrice(subtotal)}</span></div>
+            <div class="sum-row discount"><span>🎁 Totale korting (€10/stuk):</span><span>−${formatPrice(discountTotal)}</span></div>
+            <div class="sum-row"><span>Verzendkosten:</span><span>${formatPrice(SHIPPING)}</span></div>
+            <div class="sum-row total"><span>Totaal (incl. btw):</span><span>${formatPrice(total)}</span></div>
+        </div>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:14px;line-height:1.6;">📄 Na uw bestelling ontvangt u eerst een <strong>bevestigingsmail</strong>. Daarna volgt uw <strong>officiële factuur</strong>. U betaalt pas na ontvangst van de factuur, via bankoverschrijving.</p>
+        <button class="checkout-cta" onclick="showCheckout()">Doorgaan naar bestellen →</button>`;
 }
 
 function changeQty(id, d) {
-    const item = cart.find(x=>x.id===id);
+    const item = cart.find(x => x.id === id);
     if (!item) return;
     item.qty += d;
     if (item.qty <= 0) removeItem(id);
     else { saveCart(); renderCart(); }
 }
 function removeItem(id) {
-    cart = cart.filter(x=>x.id!==id);
+    cart = cart.filter(x => x.id !== id);
     saveCart(); renderCart();
 }
 
+/* ═══════════════════════════════════════
+   CHECKOUT
+═══════════════════════════════════════ */
 function showCheckout() {
-    const subtotal = cart.reduce((s,x)=>s+(x.price*x.qty),0);
-    const total = subtotal;
+    const subtotal = cart.reduce((s, x) => s + ((x.price - DISCOUNT) * x.qty), 0);
+    const discountTotal = cart.reduce((s, x) => s + (DISCOUNT * x.qty), 0);
+    const total = subtotal + SHIPPING;
+
     document.getElementById('modalBody').innerHTML = `
-        <div id="successBox" class="success-box"></div>
         <form id="orderForm" onsubmit="submitOrder(event)">
+
+            <div class="checkout-discount-box">
+                <span class="disc-icon">🎁</span>
+                <div>
+                    <strong>Uw €${(DISCOUNT * cart.reduce((s,x)=>s+x.qty,0)).toFixed(2).replace('.',',')} korting is bevestigd!</strong>
+                    Exclusief voordeel voor tuintafel-kopen.nl klanten. Geen kortingscode nodig — automatisch verrekend.
+                </div>
+            </div>
+
             <div class="form-section">
                 <h3>📦 Bezorging</h3>
-                <div class="radio-group"><input type="radio" name="shipping" id="ship-nl" value="nl" checked><label for="ship-nl">Bezorging in Nederland (gratis) — 3–10 werkdagen</label></div>
-                <div class="radio-group"><input type="radio" name="shipping" id="ship-pickup" value="pickup"><label for="ship-pickup">Afhalen in Lebbeke, België (gratis) — op afspraak</label></div>
+                <div class="radio-group">
+                    <input type="radio" name="shipping" id="ship-nl" value="nl" checked onchange="toggleAddress()">
+                    <label for="ship-nl">Bezorging in Nederland — €49,95 (incl. btw) — 3–10 werkdagen</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" name="shipping" id="ship-pickup" value="pickup" onchange="toggleAddress()">
+                    <label for="ship-pickup">Afhalen in Lebbeke, België — gratis — uitsluitend op afspraak</label>
+                </div>
             </div>
+
             <div class="form-section">
                 <h3>👤 Uw gegevens</h3>
                 <div class="form-row">
@@ -1515,6 +1379,7 @@ function showCheckout() {
                     <div class="form-group"><label>Telefoonnummer *</label><input type="tel" name="phone" required></div>
                 </div>
             </div>
+
             <div class="form-section" id="addressSection">
                 <h3>🏠 Bezorgadres (Nederland)</h3>
                 <div class="form-row">
@@ -1523,47 +1388,65 @@ function showCheckout() {
                     <div class="form-group"><label>Plaatsnaam *</label><input type="text" name="city" required></div>
                 </div>
             </div>
+
             <div class="form-section">
                 <h3>🏢 Zakelijke gegevens <small style="font-weight:400;font-size:13px;">(optioneel)</small></h3>
-                <div class="check-group"><input type="checkbox" id="isBusiness" onchange="document.getElementById('bizFields').style.display=this.checked?'block':'none'"><label for="isBusiness">Ik bestel namens een bedrijf (BTW-factuur gewenst)</label></div>
-                <div id="bizFields" style="display:none;margin-top:14px;">
+                <div class="check-group">
+                    <input type="checkbox" id="isBiz" onchange="document.getElementById('bizBox').style.display=this.checked?'block':'none'">
+                    <label for="isBiz">Ik bestel namens een bedrijf</label>
+                </div>
+                <div id="bizBox" style="display:none;margin-top:12px;">
                     <div class="form-row">
                         <div class="form-group"><label>Bedrijfsnaam</label><input type="text" name="company"></div>
                         <div class="form-group"><label>BTW-nummer</label><input type="text" name="vat" placeholder="NL123456789B01"></div>
                     </div>
                 </div>
             </div>
+
             <div class="form-section">
-                <div class="form-group"><label>Opmerkingen (optioneel)</label><textarea name="comments" placeholder="Speciale instructies, gewenste leverdatum..."></textarea></div>
+                <div class="form-group"><label>Opmerkingen (optioneel)</label><textarea name="comments" placeholder="Speciale instructies, gewenste leverweek..."></textarea></div>
             </div>
-            <div class="bank-box">
-                <h4>💳 Betaling via bankoverschrijving of iDEAL</h4>
-                <p style="font-size:13.5px;color:#1e40af;margin-bottom:12px;">Na uw bestelling ontvangt u direct een bevestiging per e-mail met betaalinstructies.</p>
+
+            <div class="invoice-notice">
+                <h4>📄 Hoe werkt de betaling?</h4>
+                <p><strong>Stap 1:</strong> U plaatst uw bestelling. U ontvangt direct een <strong>bevestigingsmail</strong>.</p>
+                <p><strong>Stap 2:</strong> Even later ontvangt u een <strong>officiële factuur</strong> per e-mail. Elke klant — particulier of zakelijk — ontvangt automatisch een factuur.</p>
+                <p><strong>Stap 3:</strong> U betaalt de factuur via bankoverschrijving:</p>
                 <div class="bank-row"><strong>Begunstigde:</strong><span>BV E-Products Europe</span></div>
                 <div class="bank-row"><strong>IBAN:</strong><span>BE89 0689 3224 6774</span></div>
                 <div class="bank-row"><strong>BIC:</strong><span>GKCCBEBB</span></div>
-                <div class="bank-row"><strong>Totaalbedrag:</strong><span style="font-weight:700;color:var(--forest)">${formatPrice(total)}</span></div>
-                <p style="font-size:12.5px;color:#6b7280;margin-top:10px;">Levering vindt plaats na ontvangst van betaling. iDEAL is beschikbaar als betalingsoptie.</p>
+                <div class="bank-row"><strong>Te betalen:</strong><span style="font-weight:700;color:var(--forest)">${formatPrice(total)}</span></div>
+                <p style="margin-top:10px;font-size:12.5px;color:#1e40af;">Na ontvangst van uw betaling plannen wij de levering in en nemen wij contact met u op voor een leverafspraak.</p>
             </div>
+
             <div class="check-group">
                 <input type="checkbox" id="acceptTerms" name="terms" required>
                 <label for="acceptTerms">Ik heb de <a href="#" onclick="showTerms();return false;" style="color:var(--forest)">algemene voorwaarden</a> gelezen en ga hiermee akkoord. *</label>
             </div>
-            <button type="submit" class="checkout-cta" style="margin-top:16px">Bestelling plaatsen — ${formatPrice(total)}</button>
-        </form>`;
 
-    document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', () => {
-        document.getElementById('addressSection').style.display = r.value === 'pickup' ? 'none' : 'block';
-        document.querySelectorAll('#addressSection input').forEach(i => { i.required = r.value !== 'pickup'; });
-    }));
+            <button type="submit" class="checkout-cta" style="margin-top:16px">
+                ✅ Bestelling plaatsen — ${formatPrice(total)}
+            </button>
+        </form>`;
+}
+
+function toggleAddress() {
+    const isNL = document.getElementById('ship-nl')?.checked;
+    const sec = document.getElementById('addressSection');
+    if (sec) {
+        sec.style.display = isNL ? 'block' : 'none';
+        sec.querySelectorAll('input').forEach(i => { i.required = isNL; });
+    }
 }
 
 async function submitOrder(e) {
     e.preventDefault();
     const form = e.target;
     const data = Object.fromEntries(new FormData(form));
-    const subtotal = cart.reduce((s,x)=>s+(x.price*x.qty),0);
-    const total = subtotal;
+    const subtotal = cart.reduce((s, x) => s + ((x.price - DISCOUNT) * x.qty), 0);
+    const discountTotal = cart.reduce((s, x) => s + (DISCOUNT * x.qty), 0);
+    const shipping = data.shipping === 'pickup' ? 0 : SHIPPING;
+    const total = subtotal + shipping;
     const orderNum = 'TK' + Date.now();
 
     const btn = form.querySelector('button[type="submit"]');
@@ -1574,109 +1457,147 @@ async function submitOrder(e) {
         customer_email: data.email,
         customer_phone: data.phone,
         order_number: orderNum,
-        order_date: new Date().toLocaleDateString('nl-NL',{year:'numeric',month:'long',day:'numeric'}),
-        order_items: cart.map(i=>`${i.name} | ${i.qty}x €${i.price.toFixed(2).replace('.',',')} = €${(i.price*i.qty).toFixed(2).replace('.',',')}`).join('\n'),
-        subtotal: subtotal.toFixed(2).replace('.',','),
-        shipping_cost: '0,00',
-        total_amount: total.toFixed(2).replace('.',','),
-        shipping_method: data.shipping === 'pickup' ? 'Afhalen in Lebbeke (gratis)' : 'Bezorging Nederland (gratis)',
-        delivery_address: data.shipping === 'pickup' ? 'Hannaerden 1a, 9280 Lebbeke (België)' : `${data.address}\n${data.postcode} ${data.city}`,
-        comments: data.comments || 'Geen',
-        company_name: data.company || '',
-        vat_number: data.vat || ''
+        order_date: new Date().toLocaleDateString('nl-NL', { year:'numeric', month:'long', day:'numeric' }),
+        order_items: cart.map(i => {
+            const dp = i.price - DISCOUNT;
+            return `${i.name}\nAantal: ${i.qty} × ${formatPrice(dp)} = ${formatPrice(dp * i.qty)}\n(incl. €10 korting per stuk)`;
+        }).join('\n\n'),
+        subtotal: formatPrice(subtotal),
+        discount_total: formatPrice(discountTotal),
+        shipping_cost: data.shipping === 'pickup' ? 'Gratis (afhalen)' : formatPrice(SHIPPING),
+        total_amount: formatPrice(total),
+        shipping_method: data.shipping === 'pickup' ? 'Afhalen in Lebbeke (gratis, op afspraak)' : 'Bezorging Nederland (€49,95)',
+        delivery_address: data.shipping === 'pickup'
+            ? 'Hannaerden 1a, 9280 Lebbeke, België (op afspraak)'
+            : `${data.address}\n${data.postcode} ${data.city}\nNederland`,
+        comments: data.comments || 'Geen opmerkingen',
+        company_name: data.company || 'Particulier',
+        vat_number: data.vat || '—',
+        payment_info: 'BETALING VIA BANKOVERSCHRIJVING na ontvangst factuur\nIBAN: BE89 0689 3224 6774 | BIC: GKCCBEBB\nBegunstigde: BV E-Products Europe'
     };
 
     try {
         await emailjs.send('service_abc123', 'template_gfg22cs', emailData);
-        await emailjs.send('service_abc123', 'template_ngwxei7', {...emailData, to_email:'support@e-woodproducts.com'});
+        await emailjs.send('service_abc123', 'template_ngwxei7', { ...emailData, to_email: 'support@e-woodproducts.com' });
+
         cart = []; saveCart();
         document.getElementById('modalBody').innerHTML = `
-            <div style="text-align:center;padding:60px 20px;">
-                <div style="font-size:5rem;margin-bottom:20px;">✅</div>
+            <div style="text-align:center;padding:50px 20px;">
+                <div style="font-size:4.5rem;margin-bottom:18px;">✅</div>
                 <h2 style="font-family:'Playfair Display',serif;color:var(--forest);margin-bottom:12px;">Bestelling ontvangen!</h2>
                 <p style="font-size:15px;color:var(--text-muted);margin-bottom:8px;">Ordernummer: <strong>${orderNum}</strong></p>
-                <p style="color:var(--text-muted);margin-bottom:24px;">U ontvangt binnen enkele minuten een bevestiging per e-mail met betaalgegeven. Na betaling nemen wij contact op voor de leverafspraak.</p>
-                <button class="checkout-cta" onclick="closeCart()" style="width:auto;padding:14px 40px;">Verder winkelen</button>
+                <div style="background:var(--discount-bg);border:2px solid var(--discount-border);border-radius:10px;padding:18px;margin:20px 0;font-size:14px;color:#78350f;">
+                    🎁 Uw korting is verrekend in de totaalprijs op uw factuur.
+                </div>
+                <div style="background:#eff6ff;border:2px solid #93c5fd;border-radius:10px;padding:18px;margin:0 0 24px;font-size:14px;color:#1e3a8a;text-align:left;">
+                    <strong>Wat gebeurt er nu?</strong><br><br>
+                    1. U ontvangt zo dadelijk een <strong>bevestigingsmail</strong>.<br>
+                    2. Even daarna ontvangt u uw <strong>officiële factuur</strong> per e-mail.<br>
+                    3. U betaalt de factuur via bankoverschrijving:<br>
+                    &nbsp;&nbsp;&nbsp;IBAN: <strong>BE89 0689 3224 6774</strong> | BIC: <strong>GKCCBEBB</strong><br>
+                    4. Na betaling nemen wij contact op voor de leverafspraak.
+                </div>
+                <button class="checkout-cta" onclick="closeCart()" style="width:auto;padding:14px 40px;">Sluiten</button>
             </div>`;
-    } catch(err) {
+    } catch (err) {
         console.error(err);
         btn.disabled = false;
-        btn.textContent = 'Opnieuw proberen';
+        btn.textContent = '✅ Bestelling plaatsen — opnieuw proberen';
         alert('Er is iets misgegaan. Probeer het opnieuw of stuur een e-mail naar support@e-woodproducts.com');
     }
 }
 
-/* ═══════════════════════════
-   ALGEMENE VOORWAARDEN
-═══════════════════════════ */
+/* ═══════════════════════════════════════
+   ALGEMENE VOORWAARDEN (NL-compliant)
+═══════════════════════════════════════ */
 function showTerms() {
     const html = `
 <div style="padding:24px;max-height:75vh;overflow-y:auto;font-size:14px;line-height:1.75;color:#1c1c1c;">
-<h2 style="font-family:'Playfair Display',serif;margin-bottom:8px;">Algemene Voorwaarden</h2>
-<p><em>Tuintafel-kopen.nl is een handelsnaam van BV E-Products Europe, gevestigd te Lebbeke (België). Geldig voor leveringen aan Nederlandse consumenten en bedrijven.</em></p>
+<h2 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--forest)">Algemene Voorwaarden — Tuintafel-kopen.nl</h2>
+<p><em>Tuintafel-kopen.nl is een handelsnaam van BV E-Products Europe, gevestigd te Lebbeke (België). Deze voorwaarden zijn van toepassing op alle bestellingen via tuintafel-kopen.nl, in het bijzonder voor levering aan Nederlandse afnemers.</em></p>
 <p><strong>Versie geldig vanaf 01-01-2024</strong></p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">1. Identiteit ondernemer</h3>
-<p>BV E-Products Europe<br>
-Hannaerden 1a, 9280 Lebbeke, België (magazijn & ophaaladres)<br>
-E-mail: support@e-woodproducts.com<br>
-BTW-nummer: BE 0500.621.156<br>
-KvK-equivalent: RPR Gent (BE)</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">1. Identiteit van de ondernemer</h3>
+<p>
+    <strong>BV E-Products Europe</strong><br>
+    Magazijn & ophaaladres: Hannaerden 1a, 9280 Lebbeke, België<br>
+    E-mail klantenservice: <a href="mailto:support@e-woodproducts.com" style="color:var(--moss)">support@e-woodproducts.com</a><br>
+    Officiële webshop: <a href="https://www.e-woodproducts.com/nl-nl" target="_blank" style="color:var(--moss)">www.e-woodproducts.com/nl-nl</a><br>
+    BTW-nummer: BE 0500.621.156<br>
+    IBAN: BE89 0689 3224 6774 | BIC: GKCCBEBB
+</p>
 
 <h3 style="margin:18px 0 6px;color:var(--forest)">2. Toepasselijkheid</h3>
-<p>Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, bestellingen en overeenkomsten via tuintafel-kopen.nl. Wij leveren conform de Belgische en Europese consumentenregelgeving, waaronder de EU-richtlijn voor consumentenkoop.</p>
+<p>Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, bestellingen en overeenkomsten via tuintafel-kopen.nl. Wij handelen conform de Belgische en Europese consumentenregelgeving (EU-richtlijn 2011/83/EU), die ook in Nederland directe bescherming biedt. Nederlandse dwingende consumentenrechtbepalingen zijn van toepassing voor zover zij gunstigere bescherming bieden.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">3. Prijzen en BTW</h3>
-<p>Alle prijzen zijn inclusief BTW (21%) en exclusief eventuele kosten. Voor leveringen aan Nederland zijn geen extra invoerkosten van toepassing (EU-intern). Zakelijke klanten kunnen een BTW-factuur aanvragen met het Belgische BTW-nummer.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">3. Prijzen, BTW en €10 Korting</h3>
+<p>Alle vermelde prijzen op tuintafel-kopen.nl zijn inclusief btw (21%), exclusief verzendkosten, en inclusief de <strong>€10 korting per product</strong> die exclusief geldt voor bestellingen via tuintafel-kopen.nl. Deze korting is het gevolg van onze bewuste keuze om niet te adverteren via Google: de daarmee bespaarde marketingkosten worden rechtstreeks aan de klant doorgegeven.</p>
+<p>De €10 korting geldt niet op onze officiële webshop (e-woodproducts.com) of andere verkoopkanalen.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">4. Betaling</h3>
-<p>Betaling geschiedt vooraf via bankoverschrijving (IBAN: BE89 0689 3224 6774, BIC: GKCCBEBB) of via iDEAL. Levering vindt plaats na ontvangst van betaling. Het order wordt bevestigd per e-mail.</p>
-
-<h3 style="margin:18px 0 6px;color:var(--forest)">5. Levering Nederland</h3>
+<h3 style="margin:18px 0 6px;color:var(--forest)">4. Factuur en Betaling</h3>
+<p><strong>Elke klant — particulier of zakelijk — ontvangt automatisch een officiële factuur.</strong> Na het plaatsen van uw bestelling ontvangt u:</p>
 <ul style="list-style:none;padding-left:16px;">
-<li>• Gratis bezorging in heel Nederland (standaard)</li>
-<li>• Levertijd: 3–10 werkdagen na betalingsontvangst</li>
-<li>• Aflevering op begane grond naast voertuig; klant helpt lossen</li>
-<li>• U wordt via e-mail/telefoon op de hoogte gehouden</li>
-<li>• Maximum levertijd 30 dagen; bij overschrijding kunt u de overeenkomst kosteloos ontbinden</li>
-<li>• Afhalen in Lebbeke (België) is gratis, uitsluitend op afspraak</li>
+    <li>1. Een <strong>bevestigingsmail</strong> onmiddellijk na uw bestelling;</li>
+    <li>2. Een <strong>officiële factuur</strong> per e-mail (even later).</li>
+</ul>
+<p>Betaling vindt uitsluitend plaats via <strong>bankoverschrijving</strong>, na ontvangst van de factuur:</p>
+<ul style="list-style:none;padding-left:16px;">
+    <li>• Begunstigde: BV E-Products Europe</li>
+    <li>• IBAN: BE89 0689 3224 6774</li>
+    <li>• BIC: GKCCBEBB</li>
+    <li>• Mededeling: ordernummer zoals vermeld op de factuur</li>
+</ul>
+<p>Levering vindt plaats na ontvangst van de volledige betaling. Facturen zijn betaalbaar binnen de termijn vermeld op de factuur. Bij laattijdige betaling is van rechtswege rente verschuldigd (zie art. 9).</p>
+
+<h3 style="margin:18px 0 6px;color:var(--forest)">5. Verzendkosten</h3>
+<p>Verzendkosten voor levering in Nederland bedragen <strong>€49,95 incl. btw</strong> per bestelling. Afhalen in Lebbeke (België) is gratis, uitsluitend op afspraak.</p>
+
+<h3 style="margin:18px 0 6px;color:var(--forest)">6. Levering</h3>
+<ul style="list-style:none;padding-left:16px;">
+    <li>• Levertijd: 3–10 werkdagen na ontvangst van betaling</li>
+    <li>• De klant wordt via e-mail/telefoon op de hoogte gehouden van de leverstatus</li>
+    <li>• Aflevering geschiedt op de begane grond, naast het voertuig; de klant helpt indien nodig mee met het lossen</li>
+    <li>• Maximale levertijd: 30 dagen. Bij overschrijding kan de klant de overeenkomst kosteloos ontbinden</li>
+    <li>• Goederen blijven eigendom van BV E-Products Europe tot volledige betaling is ontvangen</li>
 </ul>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">6. Herroepingsrecht (14 dagen)</h3>
-<p>Als Nederlandse consument heeft u wettelijk het recht uw aankoop binnen <strong>14 kalenderdagen</strong> na ontvangst zonder opgave van reden te herroepen. Dit is in overeenstemming met Richtlijn 2011/83/EU en het Nederlandse BW. U dient ons hiervan schriftelijk op de hoogte te stellen via support@e-woodproducts.com.</p>
-<p>Na herroeping heeft u nog 14 dagen om het product te retourneren. Wij restitueren het aankoopbedrag inclusief de oorspronkelijke verzendkosten binnen 14 dagen na ontvangst van het retour. Retourkosten zijn voor rekening van de klant.</p>
-<p>Het product dient in originele (of gelijkwaardige) staat te zijn. Indien de waarde is verminderd door gebruik dat verder gaat dan nodig voor inspectie, mag dit worden doorberekend.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">7. Herroepingsrecht — 14 dagen (Wettelijk voor NL-consumenten)</h3>
+<p>Als consument heeft u het recht uw aankoop binnen <strong>14 kalenderdagen</strong> na ontvangst, zonder opgave van reden, te herroepen (conform Richtlijn 2011/83/EU en het Nederlandse BW art. 6:230o e.v.).</p>
+<p>Procedure: stuur een schriftelijke mededeling naar <a href="mailto:support@e-woodproducts.com" style="color:var(--moss)">support@e-woodproducts.com</a>. Na herroeping heeft u nog 14 dagen om het product te retourneren naar: BV E-Products Europe, Hannaerden 1a, 9280 Lebbeke, België.</p>
+<p>Wij restitueren het aankoopbedrag inclusief oorspronkelijke (heenweg-)verzendkosten binnen 14 dagen na ontvangst van het retour. Retourkosten zijn voor rekening van de klant. Het product dient in originele of gelijkwaardige staat te worden geretourneerd, goed verpakt. Bij waardevermindering door gebruik dat verder gaat dan nodig voor inspectie, mag dit worden doorberekend.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">7. Garantie</h3>
-<p>Wij garanderen <strong>2 jaar</strong> op fabricage-, materiaal- en constructiefouten (te rekenen vanaf leveringsdatum). Als Nederlandse consument heeft u bovendien recht op wettelijke conformiteitsgarantie. Uitgesloten van garantie: normale slijtage, onjuist gebruik, ondeskundige montage, weersomstandigheden bij onbehandelde producten.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">8. Garantie</h3>
+<p>Wij garanderen <strong>2 jaar</strong> op fabricage-, materiaal- en constructiefouten, te rekenen vanaf de leveringsdatum. Als Nederlandse consument heeft u bovendien recht op de wettelijke conformiteitsgarantie.</p>
+<p>Uitgesloten van garantie: normale slijtage, onjuist gebruik of onderhoud, ondeskundige montage, weersomstandigheden bij onvoldoende onderhoud, en aanpassingen door de klant.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">8. Schade en klachten</h3>
-<p>Meld zichtbare schade of ontbrekende onderdelen binnen <strong>48 uur</strong> na levering via e-mail. Wij zorgen voor vervanging op eigen kosten indien de schade tijdens transport door ons is veroorzaakt. Klachten kunnen worden ingediend via support@e-woodproducts.com; wij reageren binnen 3 werkdagen.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">9. Schade en Klachten</h3>
+<p>Zichtbare schade of ontbrekende onderdelen dient u binnen <strong>48 uur</strong> na levering te melden via <a href="mailto:support@e-woodproducts.com" style="color:var(--moss)">support@e-woodproducts.com</a>. Wij zorgen voor vervanging op eigen kosten indien de schade tijdens ons transport is ontstaan. Op klachten reageren wij binnen 3 werkdagen.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">9. Eigendomsvoorbehoud</h3>
-<p>Goederen blijven eigendom van BV E-Products Europe totdat de volledige betaling is voldaan.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">10. Laattijdige Betaling</h3>
+<p>Indien een factuur niet tijdig is betaald, is van rechtswege en zonder ingebrekestelling een conventionele interest verschuldigd conform de Wet van 02/08/2002 ter bestrijding van betalingsachterstand. Tevens is een forfaitaire schadevergoeding verschuldigd van 15% van het factuurbedrag (min. €40, max. €2.500). Alle invorderingskosten worden doorberekend.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">10. Geschillen en toepasselijk recht</h3>
-<p>Op deze overeenkomst is Belgisch recht van toepassing. Voor Nederlandse consumenten geldt tevens de bescherming van dwingend Nederlandsrechtelijke consumentenbepalingen. Geschillen worden bij voorkeur via mediation opgelost. U kunt ook terecht bij het ODR-platform van de EU: <a href="https://ec.europa.eu/odr" target="_blank" style="color:var(--moss)">ec.europa.eu/odr</a>.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">11. Kenmerken en Onderhoud van Hout</h3>
+<p>Hout is een natuurproduct. Noesten, nerven, kleine kleurverschillen en beperkte werking zijn normale eigenschappen en geen gebreken. KING® picknicktafels zijn chemisch geïmpregneerd en geschikt voor permanent buitengebruik. Behandeling met houtolie wordt aanbevolen voor een langere levensduur. Jaarlijks nazien van schroeven na de winterperiode is gewenst.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">11. Kenmerken en onderhoud van hout</h3>
-<p>Hout is een natuurproduct. Noesten, nerven, kleine kleurverschillen en beperkte werking zijn geen gebreken. KING® picknicktafels zijn chemisch geïmpregneerd en geschikt voor permanent buitengebruik. Behandeling met houtolie verlengt de levensduur. Laat het hout niet zonder bescherming staan om vergrizing te vertragen. Jaarlijks nazien van schroeven wordt aanbevolen.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">12. Geschillen en Toepasselijk Recht</h3>
+<p>Op deze overeenkomst is Belgisch recht van toepassing. Voor Nederlandse consumenten blijven dwingende bepalingen van Nederlands consumentenrecht (o.a. BW Boek 6 en 7) onverkort van toepassing voor zover deze gunstiger zijn. Geschillen worden bij voorkeur opgelost via minnelijke weg. U kunt ook terecht bij het Europese ODR-platform: <a href="https://ec.europa.eu/odr" target="_blank" style="color:var(--moss)">ec.europa.eu/odr</a>. Bij rechtsgeschillen zijn de rechtbanken van het arrondissement Gent (België) bevoegd.</p>
 
-<h3 style="margin:18px 0 6px;color:var(--forest)">12. Privacy</h3>
-<p>Uw persoonsgegevens worden uitsluitend gebruikt voor orderverwerking en communicatie. Wij verkopen geen gegevens aan derden. Meer informatie op verzoek via support@e-woodproducts.com.</p>
+<h3 style="margin:18px 0 6px;color:var(--forest)">13. Privacy</h3>
+<p>Persoonsgegevens worden uitsluitend gebruikt voor orderverwerking, facturatie en communicatie. Wij verkopen geen gegevens aan derden. Meer informatie op verzoek via support@e-woodproducts.com.</p>
 
-<p style="margin-top:24px;color:#6b7280;font-size:13px;">Contact: BV E-Products Europe | Hannaerden 1a, 9280 Lebbeke, België | support@e-woodproducts.com</p>
+<p style="margin-top:24px;font-size:13px;color:#6b7280;">Contact: BV E-Products Europe | Hannaerden 1a, 9280 Lebbeke, België | support@e-woodproducts.com</p>
 </div>`;
 
     const wrap = document.createElement('div');
     wrap.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)';
-    wrap.innerHTML = `<div style="background:white;max-width:800px;width:100%;border-radius:16px;overflow:hidden;max-height:90vh;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-        <div style="background:var(--forest);color:white;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;">
-            <h3 style="font-family:'Playfair Display',serif;">Algemene Voorwaarden — Tuintafel-kopen.nl</h3>
-            <button onclick="this.closest('div').parentElement.remove()" style="background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;line-height:1;">×</button>
-        </div>
-        ${html}
-    </div>`;
+    wrap.innerHTML = `
+        <div style="background:white;max-width:840px;width:100%;border-radius:16px;overflow:hidden;max-height:92vh;box-shadow:0 20px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column;">
+            <div style="background:var(--forest);color:white;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+                <h3 style="font-family:'Playfair Display',serif;">Algemene Voorwaarden — Tuintafel-kopen.nl</h3>
+                <button onclick="this.closest('[style]').remove()" style="background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;line-height:1;">×</button>
+            </div>
+            ${html}
+        </div>`;
     wrap.onclick = e => { if (e.target === wrap) wrap.remove(); };
     document.body.appendChild(wrap);
 }
